@@ -1,0 +1,9 @@
+node_modules/
+.next/
+dist/
+out/
+/.env.local
+/.env
+npm-debug.log*
+pnpm-lock.yaml
+pnpm-debug.log*

@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sora: 'Sora';
+    --font-inter: 'Inter';
+    --font-jetbrains: 'JetBrains Mono';
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-vais-white text-vais-charcoal font-inter;
+  }
+
+  ::selection {
+    @apply bg-vais-green-light text-vais-green;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sora;
+  }
+}
+
+/* Fix: prevent oversized or transformed logos from covering the viewport */
+@layer base {
+  header img,
+  footer img,
+  .container-vais img {
+    transform: none !important;
+    max-height: 3rem; /* limit logo height */
+    height: auto !important;
+    width: auto !important;
+    object-fit: contain !important;
+  }
+}
+
+@layer utilities {
+  .section-padding {
+    @apply px-6 md:px-12 lg:px-20 xl:px-32;
+  }
+
+  .container-vais {
+    @apply max-w-7xl mx-auto px-6 md:px-12 lg:px-20;
+  }
+
+  .border-vais {
+    @apply border border-vais-border;
+  }
+}
+
+/* ─── VAIS Location Signal ─────────────────────────────────── */
+
+/* Dot grid texture for radar panel background */
+.vais-loc-dotgrid {
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.07) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+}
+
+/* Pulse ring: scale from near-zero up to full radius, fading out */
+.vais-pulse-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vais-pulse 3s ease-out infinite;
+}
+.vais-pulse-ring--d1 { animation-delay: 1s; }
+.vais-pulse-ring--d2 { animation-delay: 2s; }
+
+@keyframes vais-pulse {
+  0%   { transform: scale(0.04); opacity: 1; }
+  100% { transform: scale(1);    opacity: 0; }
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .vais-pulse-ring {
+    animation: none;
+    opacity: 0.15;
+    transform: scale(1);
+  }
+}
