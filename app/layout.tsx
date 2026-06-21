@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Sora, Inter, JetBrains_Mono } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import DebugInspector from '@/components/layout/DebugInspector';
@@ -7,24 +6,6 @@ import Cursor from '@/components/ui/Cursor';
 import ScrollProgress from '@/components/ui/ScrollProgress';
 import PageTransition from '@/components/layout/PageTransition';
 import '@/styles/globals.css';
-
-const sora = Sora({
-  subsets: ['latin'],
-  variable: '--font-sora',
-  display: 'swap',
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: {
@@ -56,7 +37,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sora.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width,initial-scale=1" />
       </head>

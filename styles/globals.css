@@ -18,9 +18,9 @@
     --shadow-soft: 0 6px 20px rgba(12,12,12,0.06);
     --shadow-elevated: 0 12px 40px rgba(12,12,12,0.09);
 
-    --font-sora: 'Sora';
-    --font-inter: 'Inter';
-    --font-jetbrains: 'JetBrains Mono';
+    --font-sora: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-inter: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-jetbrains: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
   }
 
   * {
