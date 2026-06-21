@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
+import MagneticButton from '@/components/ui/MagneticButton';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -42,19 +43,9 @@ export function Navbar() {
       <div className="container-vais">
         <div className="flex items-center justify-between h-16 md:h-18">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-            <div className="relative w-8 h-8">
-              <Image src="/images/logo-mark.png" alt="VAIS" fill className="object-contain" priority sizes="32px" />
-            </div>
-            <div className="relative h-6 w-24 hidden sm:block">
-              <Image
-                src="/images/logo-light.png"
-                alt="VAIS — Applied Intelligence Systems"
-                fill
-                className="object-contain object-left"
-                priority
-                sizes="(max-width: 640px) 80px, 96px"
-              />
+          <Link href="/" className="site-logo flex items-stretch h-16 md:h-18 flex-shrink-0">
+            <div className="relative h-full w-28 sm:w-36 md:w-40">
+              <Image src="/images/logo.png" alt="VAIS" fill className="object-contain" priority sizes="(max-width:640px) 48px, 160px" />
             </div>
           </Link>
 
@@ -64,12 +55,8 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={cn(
-                  'px-4 py-2 text-sm font-medium rounded-vais transition-colors duration-150',
-                  pathname === link.href
-                    ? 'text-vais-green-vibrant bg-vais-mint'
-                    : 'text-vais-slate hover:text-vais-charcoal hover:bg-vais-surface'
-                )}
+                className={cn('px-4 py-2 text-sm font-medium rounded-vais transition-colors duration-150', pathname === link.href ? 'text-[rgb(var(--color-primary))] bg-[rgba(var(--color-primary),0.06)]' : 'text-[rgb(var(--color-muted))] hover:text-[rgb(var(--color-charcoal))] hover:bg-[rgba(var(--color-primary),0.04)]')}
+                data-cursor-interactive
               >
                 {link.label}
               </Link>
@@ -77,9 +64,9 @@ export function Navbar() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            <Button href="/contact" variant="primary" size="sm">
+            <MagneticButton href="/contact" className="py-2 px-4 text-sm rounded-vais bg-[rgb(var(--color-primary))] text-white">
               Get in Touch
-            </Button>
+            </MagneticButton>
           </div>
 
           {/* Mobile menu toggle */}

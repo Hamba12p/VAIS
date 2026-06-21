@@ -3,6 +3,9 @@ import { Sora, Inter, JetBrains_Mono } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import DebugInspector from '@/components/layout/DebugInspector';
+import Cursor from '@/components/ui/Cursor';
+import ScrollProgress from '@/components/ui/ScrollProgress';
+import PageTransition from '@/components/layout/PageTransition';
 import '@/styles/globals.css';
 
 const sora = Sora({
@@ -60,7 +63,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen flex flex-col">
         <Navbar />
         <DebugInspector />
-        <main className="flex-1 pt-16 md:pt-18">{children}</main>
+        <ScrollProgress />
+        <Cursor />
+        <main className="flex-1 pt-16 md:pt-18">
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </main>
         <Footer />
       </body>
     </html>

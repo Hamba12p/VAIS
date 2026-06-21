@@ -16,9 +16,9 @@ interface ButtonProps {
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: 'bg-vais-green text-white hover:bg-vais-green-dark border border-vais-green hover:border-vais-green-dark',
-  outline: 'bg-transparent text-vais-green border border-vais-green hover:bg-vais-green hover:text-white',
-  ghost: 'bg-transparent text-vais-slate hover:text-vais-charcoal hover:bg-vais-surface border border-transparent',
+  primary: 'bg-[rgb(var(--color-primary))] text-white hover:bg-[rgb(var(--color-primary))]/90 border border-transparent',
+  outline: 'bg-transparent text-[rgb(var(--color-primary))] border border-[rgba(var(--color-primary),0.18)] hover:bg-[rgb(var(--color-primary))] hover:text-white',
+  ghost: 'bg-transparent text-[rgb(var(--color-muted))] hover:text-[rgb(var(--color-charcoal))] hover:bg-[rgba(0,0,0,0.02)] border border-transparent',
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -46,11 +46,11 @@ export function Button({
   );
 
   if (href) {
-    return <Link href={href} className={classes}>{children}</Link>;
+    return <Link href={href} className={classes} data-cursor-interactive>{children}</Link>;
   }
 
   return (
-    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
+    <button type={type} onClick={onClick} disabled={disabled} className={classes} data-cursor-interactive>
       {children}
     </button>
   );

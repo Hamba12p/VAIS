@@ -4,6 +4,20 @@
 
 @layer base {
   :root {
+    /* Design tokens */
+    --color-primary: 8 120 110; /* subtle logo green (rgb parts) */
+    --color-accent: 8 255 170; /* electric teal-green (vibrant) */
+    --color-charcoal: 28 31 34; /* near-black */
+    --color-surface: 250 250 249; /* off-white background */
+    --color-muted: 74 85 104;
+
+    --radius-1: 4px;
+    --radius-2: 8px;
+    --radius-3: 16px;
+
+    --shadow-soft: 0 6px 20px rgba(12,12,12,0.06);
+    --shadow-elevated: 0 12px 40px rgba(12,12,12,0.09);
+
     --font-sora: 'Sora';
     --font-inter: 'Inter';
     --font-jetbrains: 'JetBrains Mono';
@@ -20,11 +34,14 @@
   }
 
   body {
-    @apply bg-vais-white text-vais-charcoal font-inter;
+    background-color: rgb(var(--color-surface));
+    color: rgb(var(--color-charcoal));
+    font-family: var(--font-inter), system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   }
 
   ::selection {
-    @apply bg-vais-green-light text-vais-green;
+    background-color: rgba(var(--color-primary), 0.12);
+    color: rgb(var(--color-accent));
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -32,17 +49,72 @@
   }
 }
 
-/* Fix: prevent oversized or transformed logos from covering the viewport */
+/* Custom cursor */
+:root[data-cursor='enabled'] {
+  cursor: none;
+}
+
+.vais-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgb(var(--color-primary));
+  transform: translate3d(-50%, -50%, 0);
+  transition: transform 120ms ease, opacity 180ms ease, width 160ms ease, height 160ms ease;
+  mix-blend-mode: normal;
+  opacity: 0.95;
+}
+
+.vais-cursor--hover {
+  width: 28px;
+  height: 28px;
+  opacity: 0.9;
+  background: linear-gradient(180deg, rgba(var(--color-accent),0.12), rgba(var(--color-primary),0.12));
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .vais-cursor,
+  .vais-pulse-ring {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Fix: restrict the logo size only for header/footer/site-branding images */
 @layer base {
-  header img,
+  /* Footer logos stay small; header logo needs to be allowed full height so it can touch nav top/bottom */
   footer img,
-  .container-vais img {
+  .footer-logo img {
     transform: none !important;
-    max-height: 3rem; /* limit logo height */
+    max-height: 3rem; /* limit logo height for footer brand */
     height: auto !important;
     width: auto !important;
     object-fit: contain !important;
   }
+
+  /* Site header logo: allow filling the nav height */
+  .site-logo {
+    display: inline-flex;
+    align-items: stretch;
+  }
+  .site-logo img {
+    transform: none !important;
+    height: 100% !important;
+    width: auto !important;
+    object-fit: contain !important;
+    max-height: none !important;
+  }
+}
+
+/* Hero background logo styling */
+.hero-bg-logo img {
+  opacity: 0.06;
+  filter: grayscale(10%) contrast(95%);
+  mix-blend-mode: multiply;
 }
 
 @layer utilities {

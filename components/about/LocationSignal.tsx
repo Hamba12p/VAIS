@@ -11,12 +11,12 @@ export function LocationSignal() {
       {/* Dot grid background */}
       <div className="vais-loc-dotgrid absolute inset-0" />
 
-      {/* Radial vignette — replace YOUR_CHARCOAL_HEX with the actual hex from tailwind.config.ts */}
+      {/* Radial vignette — teal-tinted subtle glow to preserve brand color */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse at center, transparent 40%, #1C1F22 92%)',
+            'radial-gradient(ellipse at center, rgba(15,118,110,0.08) 0%, rgba(15,118,110,0.06) 25%, rgba(28,31,34,0.9) 92%)',
         }}
       />
 
@@ -42,13 +42,25 @@ export function LocationSignal() {
           <circle cx="140" cy="140" r="90"  fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="0.8" />
           <circle cx="140" cy="140" r="130" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="0.8" />
 
-          {/* Animated pulse rings — styled via globals.css */}
-          <circle className="vais-pulse-ring"       cx="140" cy="140" r="130" fill="none" stroke="#1d9e75" strokeWidth="1.5" />
-          <circle className="vais-pulse-ring vais-pulse-ring--d1" cx="140" cy="140" r="130" fill="none" stroke="#1d9e75" strokeWidth="1.5" />
-          <circle className="vais-pulse-ring vais-pulse-ring--d2" cx="140" cy="140" r="130" fill="none" stroke="#1d9e75" strokeWidth="1.5" />
+          {/* Animated pulse rings — styled via globals.css (teal-tinted) */}
+          <circle className="vais-pulse-ring"       cx="140" cy="140" r="130" fill="none" stroke="rgba(15,118,110,0.28)" strokeWidth="1.5" />
+          <circle className="vais-pulse-ring vais-pulse-ring--d1" cx="140" cy="140" r="130" fill="none" stroke="rgba(15,118,110,0.28)" strokeWidth="1.5" />
+          <circle className="vais-pulse-ring vais-pulse-ring--d2" cx="140" cy="140" r="130" fill="none" stroke="rgba(15,118,110,0.28)" strokeWidth="1.5" />
 
           {/* Centre marker */}
-          <circle cx="140" cy="140" r="7"   fill="#0f6e56" />
+          {/* Centre marker: brand teal with soft teal halo */}
+          <defs>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <circle cx="140" cy="140" r="10" fill="rgba(15,118,110,0.18)" filter="url(#glow)" />
+          <circle cx="140" cy="140" r="7"   fill="#0F766E" />
           <circle cx="140" cy="140" r="3.5" fill="#9fe1cb" />
 
           {/* Crosshair tick marks */}

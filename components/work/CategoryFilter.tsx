@@ -9,7 +9,7 @@ export function CategoryFilter({ onChange }: { onChange: (key: string) => void }
   return (
     <div className="flex flex-wrap gap-2">
       <button
-        className={`text-sm px-3 py-1 rounded-vais ${active === 'all' ? 'bg-vais-green text-white' : 'bg-transparent text-vais-slate border border-vais-border'}`}
+        className={`text-sm px-3 py-1 rounded-vais border transition-colors duration-150 ${active === 'all' ? 'bg-[rgb(var(--color-primary))] text-white border-transparent' : 'bg-transparent text-[rgb(var(--color-muted))] border-[rgba(0,0,0,0.06)] hover:bg-[rgb(var(--color-primary)/0.08)] hover:text-[rgb(var(--color-charcoal))]'}`}
         onClick={() => { setActive('all'); onChange('all'); }}
       >
         All
@@ -17,7 +17,7 @@ export function CategoryFilter({ onChange }: { onChange: (key: string) => void }
       {categories.map((c) => (
         <button
           key={c.key}
-          className={`text-sm px-3 py-1 rounded-vais ${active === c.key ? 'bg-vais-green text-white' : 'bg-transparent text-vais-slate border border-vais-border'}`}
+          className={`text-sm px-3 py-1 rounded-vais border transition-colors duration-150 ${active === c.key ? 'bg-[rgb(var(--color-primary))] text-white border-transparent' : 'bg-transparent text-[rgb(var(--color-muted))] border-[rgba(0,0,0,0.06)] hover:bg-[rgb(var(--color-primary)/0.08)] hover:text-[rgb(var(--color-charcoal))]'}`}
           onClick={() => { setActive(c.key); onChange(c.key); }}
         >
           {c.label}

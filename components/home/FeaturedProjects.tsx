@@ -1,5 +1,6 @@
 import { getFeaturedProjects } from '@/data/projects';
 import { ProjectCard } from '@/components/work/ProjectCard';
+import { getPatternedImage } from '@/lib/utils';
 import { FadeIn } from '@/components/ui/FadeIn';
 
 export function FeaturedProjects() {
@@ -12,7 +13,7 @@ export function FeaturedProjects() {
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {featured.map((p, i) => (
           <FadeIn key={p.slug} delay={i * 0.05}>
-            <ProjectCard project={p} />
+            <ProjectCard project={p} image={getPatternedImage(i)} />
           </FadeIn>
         ))}
       </div>

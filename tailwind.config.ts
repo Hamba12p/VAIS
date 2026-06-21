@@ -9,17 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'vais-green': '#0C6B57',
-        'vais-green-dark': '#085041',
-        'vais-green-light': '#E1F5EE',
-        'vais-green-vibrant': '#15997A',
-        'vais-mint': '#C2F0EC',
-        'vais-charcoal': '#1C1F22',
-        'vais-slate': '#4A5568',
-        'vais-slate-light': '#718096',
-        'vais-border': '#E2E8F0',
-        'vais-surface': '#F7F8FA',
-        'vais-white': '#FFFFFF',
+        primary: 'rgb(var(--color-primary) / <alpha-value>)',
+        accent: 'rgb(var(--color-accent) / <alpha-value>)',
+        charcoal: 'rgb(var(--color-charcoal) / <alpha-value>)',
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
+        muted: 'rgb(var(--color-muted) / <alpha-value>)',
+        border: 'rgba(0,0,0,0.06)',
+        white: '#ffffff',
       },
       fontFamily: {
         sora: ['var(--font-sora)', 'sans-serif'],

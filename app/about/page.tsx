@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { FadeIn } from '@/components/ui/FadeIn';
+import Reveal from '@/components/ui/Reveal';
 import { company } from '@/data/company';
 import { LocationSignal } from '@/components/about/LocationSignal';
 import { Button } from '@/components/ui/Button';
+import MagneticButton from '@/components/ui/MagneticButton';
 import { ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -67,9 +68,9 @@ export default function AboutPage() {
               subheading={company.description}
             />
             <div className="flex flex-wrap gap-4 mt-8">
-              <Button href="/work" variant="primary" size="md">
+              <MagneticButton href="/work" className="inline-flex items-center gap-2 py-2 px-4 text-sm rounded-vais bg-[rgb(var(--color-primary))] text-white">
                 View Our Work <ArrowRight size={14} />
-              </Button>
+              </MagneticButton>
               <Button href="/contact" variant="outline" size="md">
                 Get in Touch
               </Button>
@@ -79,14 +80,16 @@ export default function AboutPage() {
       </div>
 
       {/* Stats */}
-      <div className="border-b border-vais-border bg-vais-charcoal">
+      <div className="border-b border-vais-border bg-[rgb(var(--color-charcoal))]">
         <div className="container-vais py-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {company.stats.map((stat) => (
-              <div key={stat.label}>
-                <p className="font-sora font-800 text-3xl text-white">{stat.value}</p>
-                <p className="text-xs font-mono text-white/50 uppercase tracking-widest mt-1">{stat.label}</p>
-              </div>
+            {company.stats.map((stat, i) => (
+              <Reveal key={stat.label} delay={i * 0.03}>
+                <div>
+                  <p className="font-sora font-extrabold text-3xl text-white"><span>{stat.value}</span></p>
+                  <p className="text-xs font-mono text-white/50 uppercase tracking-widest mt-1">{stat.label}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -102,15 +105,15 @@ export default function AboutPage() {
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {capabilities.map((cap, i) => (
-              <FadeIn key={cap.title} delay={i * 0.04}>
-                <div className="border border-vais-border rounded-vais-md p-6 bg-white">
+              <Reveal key={cap.title} delay={i * 0.04}>
+                <div className="border border-[rgba(var(--color-charcoal),0.06)] rounded-vais-md p-6 bg-white">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="text-xs font-mono text-vais-green font-medium">0{i + 1}</span>
-                    <h3 className="font-sora font-600 text-vais-charcoal">{cap.title}</h3>
+                    <span className="text-xs font-mono text-[rgb(var(--color-primary))] font-medium">0{i + 1}</span>
+                    <h3 className="font-sora font-semibold text-[rgb(var(--color-charcoal))]">{cap.title}</h3>
                   </div>
-                  <p className="text-sm text-vais-slate leading-relaxed">{cap.body}</p>
+                  <p className="text-sm text-[rgb(var(--color-muted))] leading-relaxed">{cap.body}</p>
                 </div>
-              </FadeIn>
+              </Reveal>
             ))}
           </div>
         </div>

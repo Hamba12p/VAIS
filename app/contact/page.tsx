@@ -1,12 +1,13 @@
- 'use client';
+"use client";
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Mail, Phone, MapPin, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, CheckCircle, ExternalLink } from 'lucide-react';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
+import MagneticButton from '@/components/ui/MagneticButton';
 import { company } from '@/data/company';
 import { cn } from '@/lib/utils';
 
@@ -56,9 +57,9 @@ function ContactForm() {
   if (submitted) {
     return (
       <div className="flex flex-col items-center justify-center py-20 gap-4 text-center">
-        <CheckCircle size={40} className="text-vais-green" />
-        <h3 className="font-sora font-700 text-xl text-vais-charcoal">Message received.</h3>
-        <p className="text-vais-slate max-w-sm">We'll respond to your enquiry as soon as possible.</p>
+        <CheckCircle size={40} className="text-[rgb(var(--color-primary))]" />
+        <h3 className="font-sora font-700 text-xl text-[rgb(var(--color-charcoal))]">Message received.</h3>
+        <p className="text-[rgb(var(--color-muted))] max-w-sm">We'll respond to your enquiry as soon as possible.</p>
       </div>
     );
   }
@@ -67,59 +68,50 @@ function ContactForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-mono text-vais-slate uppercase tracking-widest">Name *</label>
+          <label className="text-xs font-mono text-vais-green/70 uppercase tracking-widest">Name *</label>
           <input
             {...register('name')}
             placeholder="Your name"
-            className={cn(
-              'border border-vais-border rounded-vais px-4 py-3 text-sm text-vais-charcoal bg-white placeholder:text-vais-slate-light focus:outline-none focus:border-vais-green transition-colors duration-150',
-              errors.name && 'border-red-400'
-            )}
+            className={cn('border border-[rgba(var(--color-charcoal),0.06)] rounded-vais px-4 py-3 text-sm text-[rgb(var(--color-charcoal))] bg-white placeholder:text-[rgb(var(--color-muted))] focus:outline-none focus:border-vais-green focus:ring-1 focus:ring-vais-green transition-colors duration-150', errors.name && 'border-red-400')}
           />
           {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-mono text-vais-slate uppercase tracking-widest">Email *</label>
+          <label className="text-xs font-mono text-vais-green/70 uppercase tracking-widest">Email *</label>
           <input
             {...register('email')}
             type="email"
             placeholder="your@email.com"
-            className={cn(
-              'border border-vais-border rounded-vais px-4 py-3 text-sm text-vais-charcoal bg-white placeholder:text-vais-slate-light focus:outline-none focus:border-vais-green transition-colors duration-150',
-              errors.email && 'border-red-400'
-            )}
+            className={cn('border border-[rgba(var(--color-charcoal),0.06)] rounded-vais px-4 py-3 text-sm text-[rgb(var(--color-charcoal))] bg-white placeholder:text-[rgb(var(--color-muted))] focus:outline-none focus:border-vais-green focus:ring-1 focus:ring-vais-green transition-colors duration-150', errors.email && 'border-red-400')}
           />
           {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
         </div>
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-mono text-vais-slate uppercase tracking-widest">Organisation</label>
+        <label className="text-xs font-mono text-vais-green/70 uppercase tracking-widest">Organisation</label>
         <input
           {...register('organisation')}
           placeholder="Ministry, company, or institution (optional)"
-          className="border border-vais-border rounded-vais px-4 py-3 text-sm text-vais-charcoal bg-white placeholder:text-vais-slate-light focus:outline-none focus:border-vais-green transition-colors duration-150"
+          className="border border-[rgba(var(--color-charcoal),0.06)] rounded-vais px-4 py-3 text-sm text-[rgb(var(--color-charcoal))] bg-white placeholder:text-[rgb(var(--color-muted))] focus:outline-none focus:border-vais-green focus:ring-1 focus:ring-vais-green transition-colors duration-150"
         />
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-mono text-vais-slate uppercase tracking-widest">Message *</label>
+        <label className="text-xs font-mono text-[rgb(var(--color-muted))] uppercase tracking-widest">Message *</label>
         <textarea
           {...register('message')}
           rows={6}
           placeholder="Describe what you're building or what you need."
-          className={cn(
-            'border border-vais-border rounded-vais px-4 py-3 text-sm text-vais-charcoal bg-white placeholder:text-vais-slate-light focus:outline-none focus:border-vais-green transition-colors duration-150 resize-none',
-            errors.message && 'border-red-400'
-          )}
+            className={cn('border border-[rgba(var(--color-charcoal),0.06)] rounded-vais px-4 py-3 text-sm text-[rgb(var(--color-charcoal))] bg-white placeholder:text-[rgb(var(--color-muted))] focus:outline-none focus:border-vais-green focus:ring-1 focus:ring-vais-green transition-colors duration-150 resize-none', errors.message && 'border-red-400')}
         />
         {errors.message && <p className="text-xs text-red-500">{errors.message.message}</p>}
       </div>
 
-      <Button type="submit" variant="primary" size="md" disabled={isSubmitting} className="self-start">
+      <MagneticButton type="submit" className="self-start py-2 px-4 text-sm rounded-vais bg-[rgb(var(--color-primary))] text-white" disabled={isSubmitting}>
         {isSubmitting ? 'Sending...' : 'Send Message'}
-      </Button>
+      </MagneticButton>
     </form>
   );
 }
@@ -137,36 +129,41 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="container-vais py-16">
+          <div className="container-vais py-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           {/* Form */}
-          <div className="lg:col-span-2">
-            <h2 className="font-sora font-600 text-lg text-vais-charcoal mb-8">Send a message</h2>
+          <div className="lg:col-span-2 border-l-4 border-vais-green/20">
+            <h2 className="font-sora font-semibold text-lg text-[rgb(var(--color-charcoal))] mb-8">Send a message</h2>
             <ContactForm />
           </div>
 
           {/* Contact details */}
           <aside className="flex flex-col gap-8">
             <div>
-              <p className="text-xs font-mono text-vais-slate uppercase tracking-widest mb-5">Direct Contact</p>
+              <p className="text-xs font-mono text-vais-green/70 uppercase tracking-widest mb-5">Direct Contact</p>
               <div className="flex flex-col gap-4">
-                <a
-                  href={`mailto:${company.email}`}
-                  className="flex items-center gap-3 text-vais-charcoal hover:text-vais-green transition-colors duration-150 group"
-                >
-                  <Mail size={16} className="text-vais-green" />
+                <a href={`mailto:${company.email}`} className="flex items-center gap-3 text-[rgb(var(--color-charcoal))] hover:text-[rgb(var(--color-primary))] transition-colors duration-150 group" data-cursor-interactive>
+                  <Mail size={16} className="text-[rgb(var(--color-primary))]" />
                   <span className="text-sm font-mono">{company.email}</span>
                 </a>
-                <a
-                  href={`tel:${company.phone}`}
-                  className="flex items-center gap-3 text-vais-charcoal hover:text-vais-green transition-colors duration-150"
-                >
-                  <Phone size={16} className="text-vais-green" />
+                <a href={`tel:${company.phone}`} className="flex items-center gap-3 text-[rgb(var(--color-charcoal))] hover:text-[rgb(var(--color-primary))] transition-colors duration-150" data-cursor-interactive>
+                  <Phone size={16} className="text-[rgb(var(--color-primary))]" />
                   <span className="text-sm font-mono">{company.phone}</span>
                 </a>
-                <div className="flex items-start gap-3 text-vais-slate">
-                  <MapPin size={16} className="text-vais-green mt-0.5 flex-shrink-0" />
-                  <span className="text-sm">{company.address}</span>
+                <div className="flex items-start gap-3 text-[rgb(var(--color-muted))]">
+                  <MapPin size={16} className="text-[rgb(var(--color-primary))] mt-0.5 flex-shrink-0" />
+                  <div className="flex flex-col">
+                    <span className="text-sm">{company.address}</span>
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(company.address)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mt-2 text-xs font-mono border border-vais-green text-vais-green px-3 py-1.5 rounded-vais hover:bg-vais-green hover:text-white transition-colors duration-150"
+                    >
+                      Get directions
+                      <ExternalLink size={14} />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
