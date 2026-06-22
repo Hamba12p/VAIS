@@ -9,3 +9,4 @@ pnpm-lock.yaml
 pnpm-debug.log*
 neww
 neww.pub
+.pnpm-store/
