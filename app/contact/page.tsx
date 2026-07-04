@@ -132,10 +132,18 @@ export default function ContactPage() {
           <div className="container-vais py-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           {/* Form */}
-          <div className="lg:col-span-2 border-l-4 border-vais-green/20">
-            <h2 className="font-sora font-semibold text-lg text-[rgb(var(--color-charcoal))] mb-8">Send a message</h2>
-            <ContactForm />
-          </div>
+              <div className="lg:col-span-2 border-l-4 border-vais-green/20">
+                <h2 className="font-sora font-semibold text-lg text-[rgb(var(--color-charcoal))] mb-4">Send a message</h2>
+
+                <div className="mb-6 text-sm text-[rgb(var(--color-muted))] max-w-3xl">
+                  <p className="mb-2">We are a compact team of engineers and product leads focused on delivering applied intelligence for public systems. Typical enquiries include national deployments, integrations with existing infrastructure, or partner-led pilots.</p>
+                  <p className="mb-2">To help us respond quickly, include the deployment scale, a short description of the technical environment, and your preferred timeline. For urgent matters, please call the number listed at right.</p>
+                  <p className="mb-0">We treat all enquiries with discretion and aim to reply within one business day.</p>
+                </div>
+
+                <h3 className="sr-only">Contact form</h3>
+                <ContactForm />
+              </div>
 
           {/* Contact details */}
           <aside className="flex flex-col gap-8">

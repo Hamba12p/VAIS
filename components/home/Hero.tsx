@@ -9,6 +9,8 @@ import StatCounter from '@/components/ui/StatCounter';
 import usePrefersReducedMotion from '@/lib/hooks/usePrefersReducedMotion';
 import { company } from '@/data/company';
 import { useEffect, useRef } from 'react';
+import { HeroScene } from '@/components/three/HeroScene';
+import { BrandPanel } from '@/components/ui/BrandPanel';
 
 export function Hero() {
   const reduce = usePrefersReducedMotion();
@@ -30,12 +32,13 @@ export function Hero() {
     return () => window.removeEventListener('scroll', onScroll);
   }, [reduce]);
 
-  const headline = "Applied intelligence for institutions that can't afford to fail".split(' ');
+  const headline = "Applied intelligence for institutions that must operate with certainty".split(' ');
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative min-h-[70vh] flex items-center overflow-hidden">
       {/* Background mesh (subtle grey overlay for a professional look) */}
       <div ref={bgRef} className="absolute inset-0 -z-10 transform-gpu transition-transform duration-300 will-change-transform">
+        <HeroScene />
         <div className="absolute inset-0 bg-gradient-to-b from-[rgba(128,128,128,0.06)] via-transparent to-[rgba(128,128,128,0.02)]" />
         <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -54,8 +57,9 @@ export function Hero() {
         </svg>
       </div>
 
-      <div className="container-vais py-28 md:py-36">
-        <div className="max-w-3xl relative">
+      <div className="container-vais py-24 md:py-32">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="max-w-3xl relative">
           {/* Subtle enlarged logo behind the hero headline */}
           <div aria-hidden className="pointer-events-none absolute inset-0 -z-20 flex items-start justify-center hero-bg-logo">
             <div className="w-[80%] max-w-[90rem] select-none -translate-y-6">
@@ -63,12 +67,17 @@ export function Hero() {
             </div>
           </div>
           <Reveal>
-            <span className="text-xs font-mono text-[rgb(var(--color-muted))] tracking-widest uppercase">{company.tagline}</span>
+            <div className="inline-flex items-center gap-3 rounded-full border border-[rgba(var(--color-primary),0.14)] bg-[rgba(255,255,255,0.72)] px-4 py-2 shadow-sm backdrop-blur-sm">
+              <div className="relative h-7 w-7 overflow-hidden rounded-full border border-[rgba(var(--color-primary),0.12)] bg-white">
+                <Image src="/images/logo.png" alt="VAIS" fill className="object-contain p-1.5" />
+              </div>
+              <span className="text-xs font-mono text-[rgb(var(--color-muted))] tracking-[0.22em] uppercase">{company.tagline}</span>
+            </div>
           </Reveal>
 
           <Reveal delay={0.06}>
             <div className="relative">
-              <h1 className="mt-4 font-sora font-extrabold text-display-xl text-[rgb(var(--color-charcoal))] leading-tight">
+              <h1 className="mt-4 font-sora font-extrabold text-display-lg text-[rgb(var(--color-charcoal))] leading-tight">
               {headline.map((w, i) => (
                 <MotionSpan key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04, duration: 0.45 }} className="inline-block mr-2">{w}</MotionSpan>
               ))}
@@ -77,32 +86,52 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.14}>
-            <p className="mt-6 text-[rgb(var(--color-muted))]">{company.description}</p>
+            <p className="mt-6 text-[rgb(var(--color-muted))]">VAIS builds applied intelligence systems for institutions that need dependable delivery, credible oversight, and lasting adaptability in the field.</p>
 
             <div className="mt-8 flex items-center gap-4">
               <MagneticButton href="/work" className="inline-flex items-center justify-center gap-2 font-inter font-medium">
-                Our Work
+                Review the portfolio
               </MagneticButton>
-              <Button href="/contact" variant="outline">Contact Us</Button>
+              <Button href="/contact" variant="outline">Contact VAIS</Button>
             </div>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <div className="mt-12 flex gap-6 flex-wrap text-sm">
-              <div className="flex flex-col">
-                <span className="text-xs text-[rgb(var(--color-muted))]">Systems Deployed</span>
-                <StatCounter value={15} className="text-2xl font-sora font-semibold text-[rgb(var(--color-primary))]" />
+            <div className="mt-12 grid gap-4 sm:grid-cols-3 text-sm">
+              <div className="rounded-2xl border border-[rgba(var(--color-primary),0.12)] bg-white/80 p-4 shadow-[0_10px_30px_rgba(10,16,16,0.05)] backdrop-blur-sm">
+                <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[rgb(var(--color-muted))]">Design principle</span>
+                <p className="mt-1 text-sm leading-relaxed text-[rgb(var(--color-charcoal))]">Offline-first and low-bandwidth by default, not as a workaround.</p>
               </div>
-              <div className="flex flex-col">
-                <span className="text-xs text-[rgb(var(--color-muted))]">Directives Tracked</span>
-                <StatCounter value={23} className="text-2xl font-sora font-semibold text-[rgb(var(--color-primary))]" />
+              <div className="rounded-2xl border border-[rgba(var(--color-primary),0.12)] bg-white/80 p-4 shadow-[0_10px_30px_rgba(10,16,16,0.05)] backdrop-blur-sm">
+                <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[rgb(var(--color-muted))]">Institutional fit</span>
+                <p className="mt-1 text-sm leading-relaxed text-[rgb(var(--color-charcoal))]">Built to align with public-sector governance, auditability, and deployment realities.</p>
               </div>
-              <div className="flex flex-col">
-                <span className="text-xs text-[rgb(var(--color-muted))]">Schools</span>
-                <StatCounter value={42838} className="text-2xl font-sora font-semibold text-[rgb(var(--color-primary))]" />
+              <div className="rounded-2xl border border-[rgba(var(--color-primary),0.12)] bg-white/80 p-4 shadow-[0_10px_30px_rgba(10,16,16,0.05)] backdrop-blur-sm">
+                <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-[rgb(var(--color-muted))]">National reach</span>
+                <p className="mt-1 text-sm leading-relaxed text-[rgb(var(--color-charcoal))]">Interoperable with the core systems that keep services moving across Uganda.</p>
               </div>
             </div>
           </Reveal>
+          </div>
+
+          <div className="lg:pl-8">
+              <BrandPanel
+                label="About"
+                title="Operational systems for national services"
+                body="We design and deploy applied intelligence platforms that integrate with government infrastructure to improve delivery, oversight, and resilience."
+              />
+
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-[24px] border border-[rgba(var(--color-primary),0.12)] bg-[rgba(255,255,255,0.72)] p-5 shadow-[0_18px_50px_rgba(8,18,16,0.06)] backdrop-blur-sm">
+                <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[rgb(var(--color-muted))]">Operational thesis</p>
+                <p className="mt-2 text-sm leading-relaxed text-[rgb(var(--color-charcoal))]">Systems built from constraints outward: reliability, auditability, and field-ready maintenance.</p>
+              </div>
+              <div className="rounded-[24px] border border-[rgba(var(--color-primary),0.12)] bg-[rgba(255,255,255,0.72)] p-5 shadow-[0_18px_50px_rgba(8,18,16,0.05)] backdrop-blur-sm">
+                <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[rgb(var(--color-primary))]">Program focus</p>
+                <p className="mt-2 text-sm leading-relaxed text-[rgb(var(--color-charcoal))]">Interoperability, low-bandwidth resilience, and measurable operational impact across deployments.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

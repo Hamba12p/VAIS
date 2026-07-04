@@ -16,8 +16,8 @@ interface ButtonProps {
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: 'bg-[rgb(var(--color-primary))] text-white hover:bg-[rgb(var(--color-primary))]/90 border border-transparent',
-  outline: 'bg-transparent text-[rgb(var(--color-primary))] border border-[rgba(var(--color-primary),0.18)] hover:bg-[rgb(var(--color-primary))] hover:text-white',
+  primary: 'bg-[rgb(var(--color-primary))] text-white hover:bg-[rgb(var(--color-primary))]/95 border border-transparent shadow-[0_10px_24px_rgba(8,40,35,0.18)]',
+  outline: 'bg-white/90 text-[rgb(var(--color-primary))] border border-[rgba(var(--color-primary),0.2)] hover:bg-[rgb(var(--color-primary))] hover:text-white hover:shadow-[0_12px_26px_rgba(8,40,35,0.14)]',
   ghost: 'bg-transparent text-[rgb(var(--color-muted))] hover:text-[rgb(var(--color-charcoal))] hover:bg-[rgba(0,0,0,0.02)] border border-transparent',
 };
 

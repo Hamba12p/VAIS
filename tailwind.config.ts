@@ -16,6 +16,15 @@ const config: Config = {
         muted: 'rgb(var(--color-muted) / <alpha-value>)',
         border: 'rgba(0,0,0,0.06)',
         white: '#ffffff',
+        /* VAIS-prefixed aliases (used across the codebase) */
+        'vais-surface': 'rgb(var(--color-surface) / <alpha-value>)',
+        'vais-charcoal': 'rgb(var(--color-charcoal) / <alpha-value>)',
+        'vais-muted': 'rgb(var(--color-muted) / <alpha-value>)',
+        'vais-border': 'rgba(0,0,0,0.06)',
+        'vais-green': 'rgb(var(--color-primary) / <alpha-value>)',
+        'vais-green-light': 'rgba(var(--color-primary),0.08)',
+        'vais-mint': 'rgb(var(--color-accent) / <alpha-value>)',
+        'vais-slate': 'rgb(var(--color-muted) / <alpha-value>)',
       },
       fontFamily: {
         sora: ['var(--font-sora)', 'sans-serif'],

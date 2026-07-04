@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Project } from '@/types/project';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { TechTag } from '@/components/ui/TechTag';
+import { ApexNexusSandbox } from '@/components/apex/ApexNexusSandbox';
 
 export function ProjectDetail({ project }: { project: Project }) {
   return (
@@ -49,6 +50,19 @@ export function ProjectDetail({ project }: { project: Project }) {
           </div>
         </aside>
       </div>
+
+      {project.slug === 'apex-nexus' ? (
+        <section className="mt-10">
+          <div className="mb-4">
+            <p className="text-xs font-mono uppercase tracking-[0.18em] text-[rgb(var(--color-primary))]">Interactive Preview</p>
+            <h3 className="mt-2 font-sora text-2xl text-vais-charcoal">Sandboxed Executive Console</h3>
+            <p className="mt-2 max-w-3xl text-vais-slate">
+              Role-switched simulation of directive monitoring, discrepancy tracking, and progress verification workflows for OPM, State House, and delivery ministries.
+            </p>
+          </div>
+          <ApexNexusSandbox compact />
+        </section>
+      ) : null}
     </article>
   );
 }

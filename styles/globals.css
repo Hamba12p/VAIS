@@ -35,6 +35,11 @@
 
   body {
     background-color: rgb(var(--color-surface));
+    background-image:
+      radial-gradient(circle at 10% 0%, rgba(var(--color-primary), 0.1), transparent 32%),
+      radial-gradient(circle at 90% 8%, rgba(var(--color-accent), 0.09), transparent 26%),
+      radial-gradient(circle at 80% 88%, rgba(28, 31, 34, 0.04), transparent 30%);
+    background-attachment: fixed;
     color: rgb(var(--color-charcoal));
     font-family: var(--font-inter), system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   }
@@ -112,8 +117,8 @@
 
 /* Hero background logo styling */
 .hero-bg-logo img {
-  opacity: 0.06;
-  filter: grayscale(10%) contrast(95%);
+  opacity: 0.08;
+  filter: grayscale(8%) contrast(96%);
   mix-blend-mode: multiply;
 }
 

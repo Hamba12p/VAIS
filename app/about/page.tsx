@@ -7,6 +7,9 @@ import { LocationSignal } from '@/components/about/LocationSignal';
 import { Button } from '@/components/ui/Button';
 import MagneticButton from '@/components/ui/MagneticButton';
 import { ArrowRight } from 'lucide-react';
+import { integrationPartners } from '@/data/integrations';
+import { IntegrationMapScene } from '@/components/three/IntegrationMapScene';
+import { BrandPanel } from '@/components/ui/BrandPanel';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -40,41 +43,33 @@ const capabilities = [
   },
 ];
 
-const integrations = [
-  'NITA-U Infrastructure',
-  'NIRA API (National ID)',
-  'URSB API',
-  'DHIS2 Uganda MOH',
-  "Africa's Talking (USSD + SMS)",
-  'MTN MoMo API',
-  'Airtel Money API',
-  'Tecnotree BSS Suite 5',
-  'Ericsson Charging & Mediation',
-  'PesaLink',
-  'Flutterwave',
-  'Anthropic Claude API',
-];
-
 export default function AboutPage() {
   return (
     <div className="bg-white">
       {/* Hero */}
       <div className="border-b border-vais-border bg-vais-surface">
-        <div className="container-vais py-20 md:py-28">
-          <div className="max-w-3xl">
-            <SectionHeader
-              label="About VAIS"
-              heading="Applied Intelligence Systems."
-              subheading={company.description}
-            />
-            <div className="flex flex-wrap gap-4 mt-8">
-              <MagneticButton href="/work" className="inline-flex items-center gap-2 py-2 px-4 text-sm rounded-vais bg-[rgb(var(--color-primary))] text-white">
-                View Our Work <ArrowRight size={14} />
-              </MagneticButton>
-              <Button href="/contact" variant="outline" size="md">
-                Get in Touch
-              </Button>
+        <div className="container-vais py-16 md:py-24">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div className="max-w-3xl">
+              <SectionHeader
+                label="About VAIS"
+                heading="Applied Intelligence Systems."
+                subheading={company.description}
+              />
+              <div className="flex flex-wrap gap-4 mt-8">
+                <MagneticButton href="/work" className="inline-flex items-center gap-2 py-2 px-4 text-sm rounded-vais bg-[rgb(var(--color-primary))] text-white">
+                  View Our Work <ArrowRight size={14} />
+                </MagneticButton>
+                <Button href="/contact" variant="outline" size="md">
+                  Get in Touch
+                </Button>
+              </div>
             </div>
+            <BrandPanel
+              label="About"
+              title="Proven deployments for public institutions"
+              body="We deliver production systems that integrate with national services, improve operational oversight, and scale to meet institutional needs."
+            />
           </div>
         </div>
       </div>
@@ -144,7 +139,7 @@ export default function AboutPage() {
             <div>
               <p className="text-xs font-mono text-vais-slate uppercase tracking-widest mb-5">National Integration Points</p>
               <div className="flex flex-wrap gap-2">
-                {integrations.map((item) => (
+                {integrationPartners.map((item) => (
                   <span
                     key={item}
                     className="text-xs font-mono text-vais-charcoal bg-white border border-vais-border px-3 py-1.5 rounded-vais"
@@ -152,6 +147,9 @@ export default function AboutPage() {
                     {item}
                   </span>
                 ))}
+              </div>
+              <div className="mt-6 rounded-vais-md border border-vais-border bg-white/80 p-3 shadow-sm">
+                <IntegrationMapScene />
               </div>
             </div>
           </div>
