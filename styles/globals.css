@@ -4,23 +4,24 @@
 
 @layer base {
   :root {
-    /* Design tokens */
-    --color-primary: 8 120 110; /* subtle logo green (rgb parts) */
-    --color-accent: 8 255 170; /* electric teal-green (vibrant) */
-    --color-charcoal: 28 31 34; /* near-black */
-    --color-surface: 250 250 249; /* off-white background */
-    --color-muted: 74 85 104;
+    --color-ink: 20 23 15;
+    --color-paper: 237 234 224;
+    --color-murram: 156 74 36;
+    --color-signal: 217 154 43;
+    --color-gazette: 55 73 58;
+    --color-hairline: 185 180 166;
+    --color-muted: 90 92 78;
 
     --radius-1: 4px;
     --radius-2: 8px;
     --radius-3: 16px;
 
-    --shadow-soft: 0 6px 20px rgba(12,12,12,0.06);
-    --shadow-elevated: 0 12px 40px rgba(12,12,12,0.09);
+    --shadow-soft: 0 8px 26px rgba(20, 23, 15, 0.06);
+    --shadow-elevated: 0 16px 42px rgba(20, 23, 15, 0.1);
 
-    --font-sora: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --font-inter: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --font-jetbrains: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+    --font-sora: 'Zilla Slab', Georgia, serif;
+    --font-inter: 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
+    --font-jetbrains: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
   }
 
   * {
@@ -34,27 +35,37 @@
   }
 
   body {
-    background-color: rgb(var(--color-surface));
+    background-color: rgb(var(--color-paper));
     background-image:
-      radial-gradient(circle at 10% 0%, rgba(var(--color-primary), 0.1), transparent 32%),
-      radial-gradient(circle at 90% 8%, rgba(var(--color-accent), 0.09), transparent 26%),
-      radial-gradient(circle at 80% 88%, rgba(28, 31, 34, 0.04), transparent 30%);
+      radial-gradient(circle at 12% 0%, rgba(var(--color-murram), 0.08), transparent 28%),
+      radial-gradient(circle at 88% 12%, rgba(var(--color-gazette), 0.08), transparent 24%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 22%);
     background-attachment: fixed;
-    color: rgb(var(--color-charcoal));
-    font-family: var(--font-inter), system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    color: rgb(var(--color-ink));
+    font-family: var(--font-inter), Arial, sans-serif;
   }
 
   ::selection {
-    background-color: rgba(var(--color-primary), 0.12);
-    color: rgb(var(--color-accent));
+    background-color: rgba(var(--color-murram), 0.18);
+    color: rgb(var(--color-ink));
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-sora;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-sora);
+    letter-spacing: -0.02em;
+  }
+
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid rgb(var(--color-murram));
+    outline-offset: 3px;
   }
 }
 
-/* Custom cursor */
 :root[data-cursor='enabled'] {
   cursor: none;
 }
@@ -66,7 +77,7 @@
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: rgb(var(--color-primary));
+  background: rgb(var(--color-murram));
   transform: translate3d(-50%, -50%, 0);
   transition: transform 120ms ease, opacity 180ms ease, width 160ms ease, height 160ms ease;
   mix-blend-mode: normal;
@@ -77,35 +88,34 @@
   width: 28px;
   height: 28px;
   opacity: 0.9;
-  background: linear-gradient(180deg, rgba(var(--color-accent),0.12), rgba(var(--color-primary),0.12));
+  background: rgba(var(--color-murram), 0.12);
+  border: 1px solid rgba(var(--color-murram), 0.36);
 }
 
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .vais-cursor,
-  .vais-pulse-ring {
+  .vais-pulse-ring,
+  .register-row {
     transition: none !important;
     animation: none !important;
   }
 }
 
-/* Fix: restrict the logo size only for header/footer/site-branding images */
 @layer base {
-  /* Footer logos stay small; header logo needs to be allowed full height so it can touch nav top/bottom */
   footer img,
   .footer-logo img {
     transform: none !important;
-    max-height: 3rem; /* limit logo height for footer brand */
+    max-height: 2.25rem;
     height: auto !important;
     width: auto !important;
     object-fit: contain !important;
   }
 
-  /* Site header logo: allow filling the nav height */
   .site-logo {
     display: inline-flex;
     align-items: stretch;
   }
+
   .site-logo img {
     transform: none !important;
     height: 100% !important;
@@ -115,54 +125,61 @@
   }
 }
 
-/* Hero background logo styling */
-.hero-bg-logo img {
-  opacity: 0.08;
-  filter: grayscale(8%) contrast(96%);
-  mix-blend-mode: multiply;
-}
-
 @layer utilities {
   .section-padding {
     @apply px-6 md:px-12 lg:px-20 xl:px-32;
   }
 
   .container-vais {
-    @apply max-w-7xl mx-auto px-6 md:px-12 lg:px-20;
+    @apply mx-auto max-w-7xl px-6 md:px-12 lg:px-20;
   }
 
   .border-vais {
-    @apply border border-vais-border;
+    @apply border border-[rgb(var(--color-hairline))];
   }
 }
 
-/* ─── VAIS Location Signal ─────────────────────────────────── */
-
-/* Dot grid texture for radar panel background */
-.vais-loc-dotgrid {
-  background-image: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.07) 1px,
-    transparent 1px
-  );
-  background-size: 28px 28px;
+.register-row {
+  animation: register-reveal 420ms ease-out both;
+  animation-delay: var(--row-delay, 0ms);
 }
 
-/* Pulse ring: scale from near-zero up to full radius, fading out */
+@keyframes register-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .vais-pulse-ring {
   transform-box: fill-box;
   transform-origin: center;
   animation: vais-pulse 3s ease-out infinite;
 }
-.vais-pulse-ring--d1 { animation-delay: 1s; }
-.vais-pulse-ring--d2 { animation-delay: 2s; }
 
-@keyframes vais-pulse {
-  0%   { transform: scale(0.04); opacity: 1; }
-  100% { transform: scale(1);    opacity: 0; }
+.vais-pulse-ring--d1 {
+  animation-delay: 1s;
 }
 
-/* Respect prefers-reduced-motion */
+.vais-pulse-ring--d2 {
+  animation-delay: 2s;
+}
+
+@keyframes vais-pulse {
+  0% {
+    transform: scale(0.04);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .vais-pulse-ring {
     animation: none;

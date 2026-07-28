@@ -1,6 +1,6 @@
 "use client";
 
-import { RoundedBox, useTexture } from '@react-three/drei';
+import { RoundedBox } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -11,8 +11,7 @@ import { integrationPartners } from '@/data/integrations';
 function IntegrationMap() {
   const ringRef = useRef<THREE.Group | null>(null);
   const coreShellRef = useRef<THREE.Mesh | null>(null);
-  const logoGroupRef = useRef<THREE.Group | null>(null);
-  const logoTexture = useTexture('/images/logo.png');
+
   const ringNodes = useMemo(() => {
     return integrationPartners.slice(0, 6).map((_, idx) => {
       const angle = (idx / 6) * Math.PI * 2;
@@ -35,11 +34,6 @@ function IntegrationMap() {
       const pulse = 1 + Math.sin(t * 1.4) * 0.08;
       coreShellRef.current.scale.setScalar(pulse);
     }
-
-    if (logoGroupRef.current) {
-      logoGroupRef.current.rotation.y = -t * 0.22;
-      logoGroupRef.current.position.y = Math.sin(t * 0.8) * 0.06;
-    }
   });
 
   return (
@@ -49,32 +43,26 @@ function IntegrationMap() {
           <meshPhysicalMaterial
             color={vais3dBrand.neutral}
             emissive={vais3dBrand.accent}
-            emissiveIntensity={0.38}
-            transmission={0.54}
-            roughness={0.28}
+            emissiveIntensity={0.28}
+            transmission={0.5}
+            roughness={0.3}
             thickness={0.65}
             metalness={0.12}
           />
         </RoundedBox>
         <mesh ref={coreShellRef}>
           <sphereGeometry args={[1.18, 26, 26]} />
-          <meshBasicMaterial color="#08FFAA" transparent opacity={0.12} />
+          <meshBasicMaterial color="#8A5A38" transparent opacity={0.12} />
         </mesh>
-        <group ref={logoGroupRef}>
-          <mesh rotation={[0, 0, 0]} position={[0, 0, 0.01]}>
-            <planeGeometry args={[0.95, 0.95]} />
-            <meshBasicMaterial map={logoTexture} transparent alphaTest={0.2} toneMapped={false} />
-          </mesh>
-          <mesh rotation={[Math.PI / 2, 0, 0]}>
-            <torusGeometry args={[0.78, 0.012, 8, 80]} />
-            <meshBasicMaterial color="#8BEFD4" transparent opacity={0.55} />
-          </mesh>
-        </group>
+        <mesh rotation={[0, 0, 0]}>
+          <ringGeometry args={[0.72, 0.84, 48]} />
+          <meshBasicMaterial color="#37513A" transparent opacity={0.72} />
+        </mesh>
       </group>
 
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[4.15, 0.018, 12, 180]} />
-        <meshBasicMaterial color="#55D4BB" transparent opacity={0.27} />
+        <meshBasicMaterial color="#7E8B6F" transparent opacity={0.22} />
       </mesh>
 
       <group ref={ringRef}>
@@ -82,11 +70,11 @@ function IntegrationMap() {
           <group key={node.id} name={node.id} position={node.position}>
             <RoundedBox args={[0.86, 0.86, 0.86]} radius={0.2} smoothness={4}>
               <meshPhysicalMaterial
-                color="#24423D"
+                color="#2C3426"
                 emissive={vais3dBrand.accent}
-                emissiveIntensity={0.3}
-                transmission={0.52}
-                roughness={0.3}
+                emissiveIntensity={0.18}
+                transmission={0.45}
+                roughness={0.34}
                 thickness={0.54}
               />
             </RoundedBox>
@@ -108,12 +96,12 @@ function IntegrationMap() {
           <mesh key={`${node.id}_line`} position={midpoint} quaternion={quaternion}>
             <cylinderGeometry args={[0.014, 0.014, length, 10]} />
             <meshPhysicalMaterial
-              color="#4FBFA9"
+              color="#71826B"
               emissive={vais3dBrand.accent}
-              emissiveIntensity={0.18}
+              emissiveIntensity={0.12}
               transparent
-              opacity={0.35}
-              transmission={0.87}
+              opacity={0.28}
+              transmission={0.78}
               roughness={0.24}
             />
           </mesh>
@@ -125,7 +113,7 @@ function IntegrationMap() {
 
 export function IntegrationMapScene() {
   return (
-    <SceneCanvas className="h-[440px] w-full rounded-vais-md border border-vais-border bg-[rgba(var(--color-charcoal),0.04)]" cameraPosition={[0, 0.8, 11]}>
+    <SceneCanvas className="h-[440px] w-full border border-[rgb(var(--color-hairline))] bg-[rgba(255,255,255,0.5)]" cameraPosition={[0, 0.8, 11]}>
       <IntegrationMap />
     </SceneCanvas>
   );

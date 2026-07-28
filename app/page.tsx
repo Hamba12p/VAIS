@@ -1,32 +1,65 @@
-import Image from 'next/image';
-import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Hero } from '@/components/home/Hero';
-import Reveal from '@/components/ui/Reveal';
+import { OperationsRegister, type RegisterRow } from '@/components/ui/OperationsRegister';
+
+const rows: RegisterRow[] = [
+  {
+    ref: '01',
+    sector: 'Civic delivery',
+    status: 'ACTIVE',
+    coverage: '23 presidential directives tracked',
+    summary: 'Directive and briefing workflows shaped for manual review, status visibility, and accountable handoff.',
+  },
+  {
+    ref: '02',
+    sector: 'Education infrastructure',
+    status: 'DEPLOYED',
+    coverage: '42,838 schools reachable',
+    summary: 'Offline-first school data systems designed around national coverage rather than cloud-only assumptions.',
+  },
+  {
+    ref: '03',
+    sector: 'Health infrastructure',
+    status: 'PILOT',
+    coverage: 'DHIS2 Uganda integration and ART retention tracking',
+    summary: 'Community health workflows built for low-connectivity environments and national reporting alignment.',
+  },
+  {
+    ref: '04',
+    sector: 'Security operations',
+    status: 'ACTIVE',
+    coverage: '17M+ subscriber context',
+    summary: 'Read-only intelligence and scenario modeling for national-scale operational environments.',
+  },
+];
+
+const notes = [
+  {
+    label: 'NOTE 01',
+    title: 'Design principle',
+    body: 'Offline-first and low-bandwidth by default. The system is designed from the operating constraint outward.',
+  },
+  {
+    label: 'NOTE 02',
+    title: 'Institutional fit',
+    body: 'Auditability, role boundaries, and data-layer controls are treated as architecture, not presentation.',
+  },
+  {
+    label: 'NOTE 03',
+    title: 'National reach',
+    body: 'The stack is built to integrate with the systems institutions already rely on, not to replace them with generic tooling.',
+  },
+];
 
 export default function Home() {
   return (
     <div>
       <Hero />
-
-      <section className="container-vais py-24">
-        <SectionHeader heading="VAIS — Applied Intelligence Systems" subheading="Partner-ready systems for public institutions." align="center" />
-        <div className="mt-12 text-center">
-          <Reveal>
-            <p className="text-[rgb(var(--color-muted))]">VAIS develops applied intelligence systems that are designed to hold under real operating conditions: limited bandwidth, public accountability, and national-scale coordination.</p>
-          </Reveal>
-          <Reveal delay={0.04}>
-            <p className="text-[rgb(var(--color-muted))] mt-4 max-w-3xl mx-auto">
-              The work spans civic delivery, security operations, health infrastructure, and agriculture — each program shaped by local constraints and positioned for integration with the institutions that must rely on it day to day.
-            </p>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <a href="/work" className="inline-flex items-center justify-center rounded-vais border border-[rgba(var(--color-primary),0.16)] bg-[rgb(var(--color-primary))] px-5 py-2.5 text-sm font-medium text-white shadow-sm">Review the portfolio</a>
-              <a href="/about" className="inline-flex items-center justify-center rounded-vais border border-[rgba(var(--color-primary),0.16)] bg-white px-5 py-2.5 text-sm font-medium text-[rgb(var(--color-primary))] shadow-sm">View the approach</a>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <OperationsRegister
+        title="Operations ledger"
+        intro="A compact register of the main program areas VAIS has built around. The layout is intentionally plain: sector, status, and coverage carry the weight."
+        rows={rows}
+        notes={notes}
+      />
     </div>
   );
 }
