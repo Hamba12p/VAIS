@@ -24,16 +24,16 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   icons: {
     icon: [
-      { url: '/images/logo-mark.png', sizes: '32x32' },
-      { url: '/images/logo-mark.png', sizes: '16x16' },
+      { url: '/images/logo.png', sizes: '32x32' },
+      { url: '/images/logo.png', sizes: '16x16' },
     ],
-    apple: '/images/logo-mark.png',
+    apple: '/images/logo.png',
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 pt-16 md:pt-18">{children}</main>

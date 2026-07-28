@@ -3,11 +3,12 @@ import { ProjectDetail } from '@/components/work/ProjectDetail';
 import { projects } from '@/data/projects';
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
-export default function ProjectPage({ params }: Props) {
-  const project = getProjectBySlug(params.slug);
+export default async function ProjectPage({ params }: Props) {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
 
   if (!project) {
     return (
