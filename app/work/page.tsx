@@ -1,21 +1,3 @@
-import { ProjectGrid } from '@/components/work/ProjectGrid';
-
-export default function WorkPage() {
-  return (
-    <div>
-      <section className="container-vais py-16 md:py-20">
-        <div className="max-w-3xl">
-          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-[rgb(var(--color-murram))]">Work</p>
-          <h1 className="mt-4 text-4xl md:text-5xl font-sora leading-[0.95] text-[rgb(var(--color-ink))]">
-            Case studies written as records.
-          </h1>
-          <p className="mt-5 text-base leading-relaxed text-[rgb(var(--color-muted))]">
-            Projects are presented as operational entries so the portfolio stays legible at a glance and remains easy to scan on small screens.
-          </p>
-        </div>
-      </section>
-
-      <ProjectGrid />
-    </div>
-  );
-}
+import type { Metadata } from 'next';import { FieldLog } from '@/components/ui/FieldLog';import { projects } from '@/data/projects';
+export const metadata:Metadata={title:'Work',description:'Field notes from VAIS applied intelligence systems.'};
+export default function WorkPage(){return <><section className="container-vais py-20 md:py-28"><p className="font-mono text-[10px] uppercase tracking-[.28em] text-clay">Work / national contours</p><h1 className="mt-5 max-w-6xl text-balance font-display text-6xl leading-[.88] md:text-8xl">One system, fully told, <span className="text-clay">at a time.</span></h1><p className="mt-8 max-w-2xl text-xl leading-relaxed text-mist">{projects.length} applied systems across civic delivery, security, health, education, agriculture, finance, mobility, supply chains, and voice AI.</p></section><FieldLog/></>}

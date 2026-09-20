@@ -1,68 +1,7 @@
-import Image from 'next/image';
-import { Project } from '@/types/project';
-import { StatusBadge } from '@/components/ui/StatusBadge';
-import { TechTag } from '@/components/ui/TechTag';
-import { ApexNexusSandbox } from '@/components/apex/ApexNexusSandbox';
-
-export function ProjectDetail({ project }: { project: Project }) {
-  return (
-    <article className="container-vais py-12">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="md:col-span-2">
-          <h1 className="font-sora text-display-lg text-vais-charcoal">{project.name}</h1>
-          <p className="text-vais-slate mt-2">{project.tagline}</p>
-
-          <div className="mt-6">
-            <h3 className="font-sora text-lg text-vais-charcoal">Problem</h3>
-            <p className="text-vais-slate mt-2">{project.problem}</p>
-          </div>
-
-          <div className="mt-6">
-            <h3 className="font-sora text-lg text-vais-charcoal">Solution</h3>
-            <p className="text-vais-slate mt-2">{project.solution}</p>
-          </div>
-
-          <div className="mt-6">
-            <h3 className="font-sora text-lg text-vais-charcoal">Architecture</h3>
-            <p className="text-vais-slate mt-2">{project.architectureHighlight}</p>
-          </div>
-        </div>
-
-        <aside className="md:col-span-1">
-          <div className="bg-vais-surface p-4 rounded-vais border border-vais-border">
-            <StatusBadge status={project.status} />
-            <div className="mt-4 flex flex-wrap gap-2">
-              {project.stack.map((s) => (
-                <TechTag key={s} label={s} />
-              ))}
-            </div>
-
-            {project.metrics && (
-              <div className="mt-4">
-                <h4 className="text-sm font-mono text-vais-slate uppercase">Key metrics</h4>
-                <ul className="mt-2 list-disc list-inside text-vais-slate">
-                  {project.metrics.map((m, i) => (
-                    <li key={i}>{m}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </aside>
-      </div>
-
-      {project.slug === 'apex-nexus' ? (
-        <section className="mt-10">
-          <div className="mb-4">
-            <p className="text-xs font-mono uppercase tracking-[0.18em] text-[rgb(var(--color-primary))]">Interactive Preview</p>
-            <h3 className="mt-2 font-sora text-2xl text-vais-charcoal">Sandboxed Executive Console</h3>
-            <p className="mt-2 max-w-3xl text-vais-slate">
-              Role-switched simulation of directive monitoring, discrepancy tracking, and progress verification workflows for OPM, State House, and delivery ministries.
-            </p>
-          </div>
-          <ApexNexusSandbox compact />
-        </section>
-      ) : null}
-    </article>
-  );
-}
+import Image from 'next/image';import type { Project } from '@/types/project';import { TerrainSceneProject } from '@/components/three/TerrainSceneProject';import { ArchitectureDiagram } from './ArchitectureDiagram';import { StatusBadge } from '@/components/ui/StatusBadge';import { TechTag } from '@/components/ui/TechTag';import StatCounter from '@/components/ui/StatCounter';import { markerFor,metricNumber,vignetteFor } from '@/lib/projectPresentation';import { TerrainReveal } from '@/components/ui/TerrainReveal';import { ApexNexusSandbox } from '@/components/apex/ApexNexusSandbox';
+export function ProjectDetail({project}:{project:Project}){return <article>
+  <section className="relative min-h-[76svh] overflow-hidden bg-dusk text-canvas"><Image src={`/images/contour/vignette-${vignetteFor(project)}.png`} alt={project.name + ' field context'} fill className="object-cover" priority/><TerrainSceneProject kind={markerFor(project)} className="absolute inset-0 h-full w-full mix-blend-soft-light opacity-30"/><div className="absolute inset-0 bg-gradient-to-t from-dusk via-dusk/35 to-dusk/55"/><div className="container-vais relative z-10 flex min-h-[76svh] flex-col justify-between py-10"><div className="flex justify-between font-mono text-[10px] uppercase tracking-[.22em] text-canvas/65"><span>Field note / {project.slug}</span><StatusBadge status={project.status}/></div><div className="max-w-5xl"><h1 className="font-display text-6xl leading-[.86] md:text-9xl">{project.name}</h1><p className="mt-5 max-w-2xl text-xl leading-relaxed text-canvas/80">{project.tagline}</p></div><div className="border-t border-canvas/35 pt-5"><p className="font-mono text-[9px] uppercase tracking-[.2em] text-canvas/65">Headline measure</p><StatCounter value={metricNumber(project)} suffix={project.metrics?.[0].includes('+')?'+':''} className="mt-1 font-display text-4xl"/><p className="text-sm text-canvas/70">{project.metrics?.[0]}</p></div></div></section>
+  <section className="container-vais grid gap-10 py-20 md:py-28 lg:grid-cols-2"><TerrainReveal><p className="font-mono text-[10px] uppercase tracking-[.23em] text-clay">The condition</p><p className="mt-4 text-xl leading-relaxed text-mist">{project.problem}</p></TerrainReveal><TerrainReveal delay={.1}><p className="font-mono text-[10px] uppercase tracking-[.23em] text-clay">The response</p><p className="mt-4 text-xl leading-relaxed text-mist">{project.solution}</p></TerrainReveal></section>
+  <section className="container-vais pb-20 md:pb-28"><ArchitectureDiagram project={project}/><div className="mt-8 flex flex-wrap gap-2">{project.stack.map(item=><TechTag key={item} label={item}/>)}</div></section>
+  {project.slug==='apex-nexus'&&<section className="container-vais pb-24"><p className="mb-4 font-mono text-[10px] uppercase tracking-[.22em] text-clay">Interactive field console</p><ApexNexusSandbox compact/></section>}
+</article>}

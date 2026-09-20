@@ -43,14 +43,12 @@ export default function MagneticButton({ children, className = '', href, ...rest
     };
   }, [reduced]);
  
-  const classes = `relative will-change-transform transition-all duration-200 inline-flex items-center justify-center gap-2 rounded-vais border border-[rgba(var(--color-primary),0.18)] bg-[rgb(var(--color-primary))] px-5 py-3 text-sm font-medium text-white shadow-[0_10px_24px_rgba(8,40,35,0.18)] hover:-translate-y-0.5 hover:bg-[rgb(var(--color-primary))]/95 hover:shadow-[0_14px_30px_rgba(8,40,35,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(var(--color-primary),0.35)] ${className}`;
+  const classes = `organic-outline relative inline-flex items-center justify-center gap-2 will-change-transform transition-transform duration-300 ease-terrain ${className}`;
  
   if (href) {
     return (
-      <Link href={href} legacyBehavior>
-        <a ref={ref as React.RefObject<HTMLAnchorElement>} className={classes} data-cursor-interactive {...(rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>
-          {children}
-        </a>
+      <Link ref={ref as React.RefObject<HTMLAnchorElement>} href={href} className={classes} data-cursor-interactive {...(rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>
+        {children}
       </Link>
     );
   }

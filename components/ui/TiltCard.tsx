@@ -42,7 +42,7 @@ export default function TiltCard({ children, className = '' }: { children: React
   }, [reduced]);
 
   return (
-    <div ref={ref} className={`transform-gpu transition-transform duration-300 will-change-transform ${className}`}>
+    <div ref={ref} className={`topographic-surface transform-gpu border border-hairline transition-transform duration-500 ease-terrain will-change-transform ${className}`}>
       {children}
     </div>
   );

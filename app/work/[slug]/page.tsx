@@ -1,6 +1,7 @@
 import { getProjectBySlug } from '@/data/projects';
 import { ProjectDetail } from '@/components/work/ProjectDetail';
 import { projects } from '@/data/projects';
+import { notFound } from 'next/navigation';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -10,13 +11,7 @@ export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
 
-  if (!project) {
-    return (
-      <div className="container-vais py-24">
-        <h2 className="font-sora text-lg">Project not found</h2>
-      </div>
-    );
-  }
+  if (!project) notFound();
 
   return <ProjectDetail project={project} />;
 }

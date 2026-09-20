@@ -1,22 +1,2 @@
-import { Button } from '@/components/ui/Button';
-import { ArrowLeft } from 'lucide-react';
-
-export default function NotFound() {
-  return (
-    <div className="container-vais py-32 flex flex-col gap-6 max-w-lg">
-      <span className="text-xs font-mono text-vais-green tracking-widest uppercase">404</span>
-      <h1 className="font-sora font-700 text-display-md text-vais-charcoal">Page not found.</h1>
-      <p className="text-vais-slate leading-relaxed">
-        The page you requested does not exist or has been moved.
-      </p>
-      <div className="flex gap-4">
-        <Button href="/" variant="primary" size="md">
-          <ArrowLeft size={14} /> Back to Home
-        </Button>
-        <Button href="/work" variant="outline" size="md">
-          View Work
-        </Button>
-      </div>
-    </div>
-  );
-}
+import Image from 'next/image';import Link from 'next/link';
+export default function NotFound(){return <section className="relative min-h-[78svh] overflow-hidden bg-dusk text-canvas"><Image src="/images/contour/terrain-404.png" alt="An isolated ridge with one dim signal" fill className="object-cover" priority/><div className="absolute inset-0 bg-dusk/45"/><div className="container-vais relative z-10 flex min-h-[78svh] flex-col justify-end py-16"><p className="font-mono text-[10px] uppercase tracking-[.25em] text-signal">404 / Signal isolated</p><h1 className="mt-4 font-display text-6xl md:text-8xl">No path reaches this ridge.</h1><p className="mt-5 max-w-xl text-lg text-canvas/70">The page may have moved, or this coordinate was never mapped.</p><Link href="/" className="organic-outline mt-8 self-start px-6 py-3 font-mono text-[10px] uppercase tracking-[.18em]">Return to base</Link></div></section>}

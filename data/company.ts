@@ -2,7 +2,8 @@ export const company = {
   name: 'VAIS',
   fullName: 'VAIS — Applied Intelligence Systems',
   address: 'Makerere, Kampala, Uganda',
-  phone: '0704758195 / 0776866921',
+  phonePrimary: '0704758195',
+  phoneSecondary: '0776866921',
   email: 'Vaistech@gmail.com',
   tagline: 'Applied Intelligence Systems',
   description:

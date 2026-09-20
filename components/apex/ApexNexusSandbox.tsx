@@ -39,7 +39,7 @@ export function ApexNexusSandbox({ compact = false }: ApexNexusSandboxProps) {
   }, [roleId]);
 
   return (
-    <section className="relative overflow-hidden rounded-[24px] border border-[rgba(8,120,110,0.3)] bg-[#0B1216] text-white shadow-[0_24px_80px_rgba(3,10,12,0.5)]">
+    <section className="relative overflow-hidden border border-terrain-mid/30 bg-basalt text-canvas shadow-[0_24px_80px_rgba(28,24,21,0.5)]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(8,255,170,0.16),transparent_38%),radial-gradient(circle_at_85%_75%,rgba(8,120,110,0.2),transparent_46%)]" />
 
       <div className="relative border-b border-[rgba(143,255,229,0.18)] px-5 py-4 md:px-7">
@@ -54,11 +54,11 @@ export function ApexNexusSandbox({ compact = false }: ApexNexusSandboxProps) {
             />
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#88BDB3]">Sandbox Simulation</p>
-              <h3 className="font-sora text-lg font-semibold text-[#E6FCF6]">APEX NEXUS Interactive Console</h3>
+              <h3 className="font-display text-lg font-semibold text-canvas">APEX NEXUS Interactive Console</h3>
             </div>
           </div>
           <div className="flex items-center gap-2 rounded-full border border-[rgba(143,255,229,0.25)] bg-[rgba(8,255,170,0.08)] px-3 py-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#08FFAA] shadow-[0_0_12px_#08FFAA]" />
+            <span className="signal-dot signal-dot-live h-1.5 w-1.5 rounded-full bg-signal" />
             <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#A8FFE7]">FY 2025/26 Q4</span>
           </div>
         </div>
@@ -103,7 +103,7 @@ export function ApexNexusSandbox({ compact = false }: ApexNexusSandboxProps) {
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#8BBEB3]">Active View</p>
-                <h4 className="font-sora text-lg font-semibold text-[#DDFDF4]">{activeRole.label} Workspace</h4>
+                <h4 className="font-display text-lg font-semibold text-canvas">{activeRole.label} Workspace</h4>
               </div>
               {!compact ? (
                 <Link
@@ -135,7 +135,7 @@ export function ApexNexusSandbox({ compact = false }: ApexNexusSandboxProps) {
                     </div>
                     <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-[rgba(123,175,162,0.24)]">
                       <div
-                        className={`h-full rounded-full bg-[linear-gradient(90deg,#08786E,#08FFAA)] ${progressClass(directive.progress)}`}
+                        className={`h-full bg-[linear-gradient(90deg,#7C8B57,#E8A33D)] ${progressClass(directive.progress)}`}
                       />
                     </div>
                     <p className="mt-2 text-xs text-[#9DC5BC]">{directive.note}</p>

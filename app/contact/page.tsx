@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ContactForm } from '@/components/contact/ContactForm';
 import { company } from '@/data/company';
 
 export const metadata: Metadata = {
@@ -8,41 +9,23 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <section className="container-vais py-16 md:py-20">
-      <div className="max-w-2xl">
-        <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-[rgb(var(--color-murram))]">Contact</p>
-        <h1 className="mt-4 text-4xl md:text-5xl font-sora leading-[0.95] text-[rgb(var(--color-ink))]">
-          Direct contact for institutional work.
+    <section className="container-vais grid min-h-[76svh] items-center gap-14 py-20 lg:grid-cols-[.9fr_1.1fr]">
+      <div>
+        <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink/70">Contact / Kampala</p>
+        <h1 className="mt-5 text-balance font-display text-[clamp(2.5rem,5vw,5rem)] leading-[0.9] tracking-[-0.02em] text-ink">
+          Start from the <span className="text-green">ground truth.</span>
         </h1>
-        <p className="mt-5 text-base leading-relaxed text-[rgb(var(--color-muted))]">
-          Use the details below for government engagements, institutional deployments, or partnership enquiries.
+        <p className="mt-7 max-w-xl text-xl leading-relaxed text-ink/75">
+          For government engagements, institutional deployments, or partnerships, tell us what the system has
+          to survive.
         </p>
-
-        <div className="mt-10 border-t border-[rgb(var(--color-hairline))] pt-8">
-          <div className="grid gap-6 sm:grid-cols-3">
-            <div>
-              <p className="text-xs font-mono uppercase tracking-[0.22em] text-[rgb(var(--color-murram))]">Phone</p>
-              <a href={`tel:${company.phone}`} className="mt-2 block text-sm text-[rgb(var(--color-ink))]">
-                {company.phone}
-              </a>
-            </div>
-            <div>
-              <p className="text-xs font-mono uppercase tracking-[0.22em] text-[rgb(var(--color-murram))]">Email</p>
-              <a href={`mailto:${company.email}`} className="mt-2 block text-sm text-[rgb(var(--color-ink))]">
-                {company.email}
-              </a>
-            </div>
-            <div>
-              <p className="text-xs font-mono uppercase tracking-[0.22em] text-[rgb(var(--color-murram))]">Address</p>
-              <p className="mt-2 text-sm text-[rgb(var(--color-ink))]">{company.address}</p>
-            </div>
-          </div>
-
-          <p className="mt-8 font-mono text-[10px] uppercase tracking-[0.22em] text-[rgb(var(--color-muted))]">
-            Coordinates: 0.3476N 32.5825E - Kampala
-          </p>
+        <div className="mt-10 border-t border-rule pt-6 text-ink/75">
+          <a href={`mailto:${company.email}`} className="block text-lg text-ink">{company.email}</a>
+          <p className="mt-2">{company.phonePrimary} / {company.phoneSecondary}</p>
+          <p>{company.address}</p>
         </div>
       </div>
+      <ContactForm />
     </section>
   );
 }

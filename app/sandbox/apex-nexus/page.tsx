@@ -9,12 +9,12 @@ export const metadata: Metadata = {
 
 export default function ApexNexusSandboxPage() {
   return (
-    <div className="bg-[rgb(var(--color-charcoal))] py-8">
+    <div className="bg-basalt py-8">
       <section className="container-vais">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-xs font-mono uppercase tracking-[0.18em] text-[rgba(8,255,170,0.75)]">Sandbox Environment</p>
-            <h1 className="mt-2 font-sora text-3xl font-semibold text-white">APEX NEXUS Directive Console</h1>
+            <h1 className="mt-2 font-display text-3xl font-semibold text-canvas">APEX NEXUS Directive Console</h1>
           </div>
           <Link
             href="/work/apex-nexus"

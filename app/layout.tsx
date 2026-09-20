@@ -1,7 +1,14 @@
 import type { Metadata } from 'next';
+import { Archivo, IBM_Plex_Mono, Source_Serif_4 } from 'next/font/google';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import ScrollProgress from '@/components/ui/ScrollProgress';
+import PageTransition from '@/components/layout/PageTransition';
 import '@/styles/globals.css';
+
+const display = Archivo({ subsets: ['latin'], variable: '--font-archivo', display: 'swap' });
+const body = Source_Serif_4({ subsets: ['latin'], variable: '--font-source-serif', display: 'swap' });
+const mono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-ibm-mono', display: 'swap' });
 
 export const metadata: Metadata = {
   title: {
@@ -19,24 +26,23 @@ export const metadata: Metadata = {
     title: 'VAIS - Applied Intelligence Systems',
     description:
       'Applied intelligence systems for government, institutions, and enterprise in Uganda.',
+    images: [{ url: '/images/contour/open-graph.png', width: 1200, height: 630, alt: 'VAIS — intelligence shaped by the ground it serves' }],
   },
   metadataBase: new URL('https://vais.co'),
   robots: { index: true, follow: true },
   icons: {
-    icon: [
-      { url: '/images/logo.png', sizes: '32x32' },
-      { url: '/images/logo.png', sizes: '16x16' },
-    ],
-    apple: '/images/logo.png',
+    icon: '/images/contour/terrain-glyph.svg',
+    apple: '/images/contour/terrain-glyph.svg',
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
-      <body className="min-h-screen flex flex-col">
+    <html lang="en" data-scroll-behavior="smooth" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+      <body className="flex min-h-screen flex-col overflow-x-hidden bg-bond text-ink">
+        <ScrollProgress />
         <Navbar />
-        <main className="flex-1 pt-16 md:pt-18">{children}</main>
+        <main className="flex-1 pt-16 md:pt-18"><PageTransition>{children}</PageTransition></main>
         <Footer />
       </body>
     </html>
