@@ -1,7 +1,31 @@
-import Image from 'next/image';import type { Project } from '@/types/project';import { TerrainSceneProject } from '@/components/three/TerrainSceneProject';import { ArchitectureDiagram } from './ArchitectureDiagram';import { StatusBadge } from '@/components/ui/StatusBadge';import { TechTag } from '@/components/ui/TechTag';import StatCounter from '@/components/ui/StatCounter';import { markerFor,metricNumber,vignetteFor } from '@/lib/projectPresentation';import { TerrainReveal } from '@/components/ui/TerrainReveal';import { ApexNexusSandbox } from '@/components/apex/ApexNexusSandbox';
-export function ProjectDetail({project}:{project:Project}){return <article>
-  <section className="relative min-h-[76svh] overflow-hidden bg-dusk text-canvas"><Image src={`/images/contour/vignette-${vignetteFor(project)}.svg`} alt={project.name + ' field context'} fill className="object-cover" priority/><TerrainSceneProject kind={markerFor(project)} className="absolute inset-0 h-full w-full mix-blend-soft-light opacity-30"/><div className="absolute inset-0 bg-gradient-to-t from-dusk via-dusk/35 to-dusk/55"/><div className="container-vais relative z-10 flex min-h-[76svh] flex-col justify-between py-10"><div className="flex justify-between font-mono text-[10px] uppercase tracking-[.22em] text-canvas/65"><span>Field note / {project.slug}</span><StatusBadge status={project.status}/></div><div className="max-w-5xl"><h1 className="font-display text-canvas text-[clamp(2.5rem,7vw,8rem)] break-words leading-[1.05]">{project.name}</h1><p className="mt-5 max-w-2xl text-xl leading-relaxed text-canvas/80">{project.tagline}</p></div><div className="border-t border-canvas/35 pt-5"><p className="font-mono text-[9px] uppercase tracking-[.2em] text-canvas/65">Headline measure</p><StatCounter value={metricNumber(project)} suffix={project.metrics?.[0].includes('+')?'+':''} className="mt-1 font-display text-4xl"/><p className="text-sm text-canvas/70">{project.metrics?.[0]}</p></div></div></section>
-  <section className="container-vais grid gap-10 py-20 md:py-28 lg:grid-cols-2"><TerrainReveal><p className="font-mono text-[10px] uppercase tracking-[.23em] text-clay">The condition</p><p className="mt-4 text-xl leading-relaxed text-mist">{project.problem}</p></TerrainReveal><TerrainReveal delay={.1}><p className="font-mono text-[10px] uppercase tracking-[.23em] text-clay">The response</p><p className="mt-4 text-xl leading-relaxed text-mist">{project.solution}</p></TerrainReveal></section>
-  <section className="container-vais pb-20 md:pb-28"><ArchitectureDiagram project={project}/><div className="mt-8 flex flex-wrap gap-2">{project.stack.map(item=><TechTag key={item} label={item}/>)}</div></section>
-  {project.slug==='apex-nexus'&&<section className="container-vais pb-24"><p className="mb-4 font-mono text-[10px] uppercase tracking-[.22em] text-clay">Interactive field console</p><ApexNexusSandbox compact/></section>}
-</article>}
+import Link from 'next/link';
+import type { Project } from '@/types/project';
+import { projectProfiles } from '@/data/projectProfiles';
+import { categories } from '@/data/categories';
+import { StatusBadge } from '@/components/ui/StatusBadge';
+import { TechTag } from '@/components/ui/TechTag';
+import { ApexNexusSandbox } from '@/components/apex/ApexNexusSandbox';
+import { OperatingDiagram } from './OperatingDiagram';
+
+export function ProjectDetail({ project }: { project: Project }) {
+  const profile = projectProfiles[project.slug];
+  return <article>
+    <header className="border-b border-rule">
+      <div className="container-vais py-12 md:py-16">
+        <nav aria-label="Breadcrumb" className="mb-10 font-display text-sm text-green"><Link href="/work" className="underline underline-offset-4">All projects</Link><span aria-hidden="true"> / </span><span>{project.name}</span></nav>
+        <div className="flex flex-wrap items-center justify-between gap-4"><p className="font-mono text-xs uppercase tracking-[.1em] text-green">{project.category.map(key => categories.find(c => c.key === key)?.label).join(' / ')}</p><StatusBadge status={project.status} /></div>
+        <h1 className="mt-6 max-w-5xl break-words font-display text-[clamp(2.5rem,6.5vw,6rem)] leading-[1.05] tracking-[-.035em]">{project.name}</h1>
+        <div className="mt-7 grid gap-6 md:grid-cols-[1.7fr_1fr] md:gap-16"><p className="max-w-3xl text-xl leading-relaxed md:text-2xl">{profile.purpose}</p><div className="border-l-2 border-green pl-5"><p className="font-display text-xs uppercase tracking-wider text-green">Designed for</p><p className="mt-2 text-lg">{profile.audience}</p></div></div>
+      </div>
+    </header>
+    <section className="container-vais py-10 md:py-14" aria-label="Operating architecture"><OperatingDiagram profile={profile} name={project.name} /></section>
+    <section className="container-vais grid gap-10 pb-14 md:grid-cols-2 md:gap-16">
+      <div><h2 className="font-display text-2xl">The problem</h2><p className="mt-5 text-lg leading-relaxed text-ink/85">{project.problem}</p></div>
+      <div><h2 className="font-display text-2xl">How the system responds</h2><p className="mt-5 text-lg leading-relaxed text-ink/85">{project.solution}</p></div>
+    </section>
+    <section className="container-vais pb-16"><div className="grid gap-8 border-y border-rule py-8 md:grid-cols-[.6fr_1.4fr]"><h2 className="font-display text-2xl">Engineering decisions</h2><div><p className="text-lg leading-relaxed text-ink/85">{project.architectureHighlight}</p><ul className="mt-6 space-y-2 text-base text-ink/80">{project.metrics?.map(metric => <li key={metric} className="border-l-2 border-rule pl-4">{metric}</li>)}</ul><h3 className="mt-8 font-display text-sm font-semibold">Technology</h3><div className="mt-3 flex flex-wrap gap-2">{project.stack.map(item => <TechTag key={item} label={item} />)}</div></div></div></section>
+    {project.pairedWith && <aside className="container-vais pb-14"><p className="font-display text-lg">{project.slug === 'sentect' ? 'Explore the simulation side of this security architecture.' : 'Explore the detection side of this security architecture.'}</p><Link className="mt-3 inline-block font-display text-green underline underline-offset-4" href={'/work/'+project.pairedWith}>Read about {project.pairedWith.toUpperCase()} &#8594;</Link></aside>}
+    {project.slug === 'apex-nexus' && <section className="container-vais pb-16" aria-label="APEX NEXUS demonstration"><p className="mb-5 text-base text-ink/80">Explore the role views below using simulated data.</p><ApexNexusSandbox compact /></section>}
+    <section className="bg-field py-12 text-bond"><div className="container-vais flex flex-wrap items-center justify-between gap-6"><div><h2 className="font-display text-2xl text-bond">Discuss {project.name}</h2><p className="mt-2 text-bond/80">Talk through your workflow, integration needs, and deployment context.</p></div><Link href="/contact" className="bg-bond px-6 py-3 font-display text-sm font-semibold text-ink">Contact VAIS</Link></div></section>
+  </article>;
+}
