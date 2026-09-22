@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { company } from '@/data/company';
 
-const fieldClass = 'mt-2 w-full border-b border-rule bg-transparent px-0 py-3 text-lg text-ink outline-none transition-colors focus:border-green';
+const fieldClass = 'mt-2 w-full border-b border-rule bg-transparent px-0 py-3 text-lg text-ink transition-colors focus:border-green';
 
 export function ContactForm() {
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
@@ -73,12 +73,12 @@ export function ContactForm() {
       <div className="grid gap-7">
         <label className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/70">
           Your name
-          <input name="name" required className={fieldClass} />
+          <input name="name" minLength={2} maxLength={120} autoComplete="name" required className={fieldClass} />
         </label>
 
         <label className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/70">
           Email address
-          <input type="email" name="email" required className={fieldClass} />
+          <input type="email" name="email" maxLength={254} autoComplete="email" required className={fieldClass} />
         </label>
 
         <label className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/70">
@@ -99,7 +99,7 @@ export function ContactForm() {
 
         <label className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/70">
           What should the system do?
-          <textarea name="message" required rows={5} className={fieldClass} />
+          <textarea name="message" minLength={21} maxLength={5000} required rows={5} className={fieldClass} />
         </label>
 
         <button

@@ -20,7 +20,7 @@ export function FieldLog({limit}:{limit?:number}){const [open,setOpen]=useState<
           <span className="flex items-center gap-4"><SectorIcon sector={project.category[0]}/><span><strong className="block font-display text-xl font-medium md:text-2xl">{project.name}</strong><span className="mt-1 hidden text-sm text-mist sm:block">{category?.label}</span></span></span>
           <span className="hidden text-sm leading-snug text-mist md:block">{project.metrics?.[0]}</span><StatusBadge status={project.status} project={project}/><span className="font-mono text-xl text-clay" aria-hidden>{expanded?'−':'+'}</span>
         </button>
-        <div className={`grid overflow-hidden transition-[grid-template-rows] duration-500 ease-terrain ${expanded?'grid-rows-[1fr]':'grid-rows-[0fr]'}`}><div className="min-h-0"><div className="grid gap-6 pb-7 pl-[4.25rem] pr-4 md:grid-cols-[2fr_1fr] md:pl-[11rem]">
+        <div inert={!expanded} className={`grid overflow-hidden transition-[grid-template-rows] duration-500 ease-terrain ${expanded?'grid-rows-[1fr]':'grid-rows-[0fr]'}`}><div className="min-h-0"><div className="grid gap-6 pb-7 pl-[4.25rem] pr-4 md:grid-cols-[2fr_1fr] md:pl-[11rem]">
           <p className="max-w-4xl text-base leading-relaxed text-mist">{project.architectureHighlight}</p><Link href={`/work/${project.slug}`} className="organic-outline self-start px-5 py-3 text-center font-mono text-[10px] uppercase tracking-[.18em] text-terrain-deep">Read full field note ↗</Link>
         </div></div></div>
       </article></TerrainReveal>})}

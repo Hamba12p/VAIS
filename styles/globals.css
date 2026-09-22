@@ -55,9 +55,23 @@
   }
 
   :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-    outline: 2px solid var(--green);
+    outline: 3px solid var(--green);
     outline-offset: 3px;
+    box-shadow: 0 0 0 6px var(--bond);
   }
+
+  [id] { scroll-margin-top: 6rem; }
+  .skip-link {
+    position: fixed;
+    top: .5rem;
+    left: 1rem;
+    z-index: 100;
+    padding: .75rem 1rem;
+    background: var(--bond);
+    color: var(--ink);
+    transform: translateY(-200%);
+  }
+  .skip-link:focus { transform: translateY(0); }
 }
 
 @layer utilities {

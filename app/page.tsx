@@ -3,7 +3,7 @@ import { company } from '@/data/company';
 
 export default function Home() {
   return (
-    <main>
+    <>
       <section className="border-b border-rule bg-bond">
         <div className="container-vais grid min-h-[82vh] items-end gap-8 py-12 md:grid-cols-[1.1fr_0.9fr] md:py-16">
           <div className="max-w-2xl border border-rule bg-white/40 p-6 md:p-8">
@@ -78,7 +78,7 @@ export default function Home() {
                 <p className="mt-2 max-w-2xl text-base leading-relaxed text-ink/75">{copy}</p>
               </div>
               <div className="md:text-right">
-                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/60">Measure</div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/75">Measure</div>
                 <div className="mt-2 font-display text-xl text-ink">{metric}</div>
               </div>
             </article>
@@ -120,6 +120,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main>
+    </>
   );
 }

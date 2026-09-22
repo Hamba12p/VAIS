@@ -40,9 +40,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body className="flex min-h-screen flex-col overflow-x-hidden bg-bond text-ink">
+        <a href="#main-content" className="skip-link">Skip to content</a>
         <ScrollProgress />
         <Navbar />
-        <main className="flex-1 pt-16 md:pt-18"><PageTransition>{children}</PageTransition></main>
+        <main id="main-content" tabIndex={-1} className="flex-1 pt-16 md:pt-18"><PageTransition>{children}</PageTransition></main>
         <Footer />
       </body>
     </html>
