@@ -20,7 +20,7 @@ export function FieldLog({ items }: { items: ProjectListItem[] }) {
     </div>
     <div>{rows.map(project => <article key={project.slug} className="grid gap-5 border-b border-rule py-8 md:grid-cols-[.65fr_1.6fr] lg:grid-cols-[.65fr_1.6fr_.8fr] lg:gap-10">
       <div><p className="mb-3 font-display text-xs uppercase tracking-wider text-green">{project.category.map(key => categories.find(c => c.key === key)?.label).join(' / ')}</p><StatusBadge status={project.status} /></div>
-      <div><h2 className="font-display text-2xl leading-tight sm:text-3xl"><Link href={'/work/'+project.slug} className="underline decoration-rule underline-offset-4 hover:decoration-green">{project.name} <span className="text-green" aria-hidden="true">?</span></Link></h2><p className="mt-3 max-w-2xl text-lg leading-relaxed text-ink/80">{project.purpose}</p></div>
+      <div><h2 className="font-display text-2xl leading-tight sm:text-3xl"><Link href={'/work/'+project.slug} className="underline decoration-rule underline-offset-4 hover:decoration-green">{project.name} <span className="text-green" aria-hidden="true">&#8599;</span></Link></h2><p className="mt-3 max-w-2xl text-lg leading-relaxed text-ink/80">{project.purpose}</p></div>
       <div className="border-l-2 border-green pl-4 md:col-start-2 lg:col-start-auto"><p className="font-display text-sm font-semibold">{project.process}</p><p className="mt-2 text-sm text-ink/75">{project.audience}</p></div>
     </article>)}</div>
   </section>;
