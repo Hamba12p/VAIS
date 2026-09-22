@@ -1,0 +1,54 @@
+[
+  {
+    "route": "/",
+    "device": "mobile",
+    "scores": {
+      "performance": 64,
+      "accessibility": 96,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "lcp": 4118.857000000002,
+    "cls": 0.00004206360285511536,
+    "tbt": 766.5000000000002
+  },
+  {
+    "route": "/",
+    "device": "desktop",
+    "scores": {
+      "performance": 94,
+      "accessibility": 95,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "lcp": 1012.4992,
+    "cls": 0.0004137016517902944,
+    "tbt": 101.99999999999983
+  },
+  {
+    "route": "/work/sentect",
+    "device": "mobile",
+    "scores": {
+      "performance": 30,
+      "accessibility": 91,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "lcp": 11151.386999999999,
+    "cls": 0.1680867052791184,
+    "tbt": 6040.3065
+  },
+  {
+    "route": "/work/sentect",
+    "device": "desktop",
+    "scores": {
+      "performance": 55,
+      "accessibility": 91,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "lcp": 1978.1375,
+    "cls": 0.0004694777880373448,
+    "tbt": 1759.1437499999997
+  }
+]

@@ -1,0 +1,16 @@
+const fs=require('node:fs');
+const path=require('node:path');
+function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):[path.join(dir,e.name).replaceAll('\\','/')]);}
+const sources=['app','components','lib','data'].flatMap(files).filter(p=>/\.tsx?$/.test(p));
+let out='# Source inventory — 2026-09-22\n\nBaseline commit: `2600bbd`. Audit branch: `kepler/full-spectrum-audit-improvement`.\n\n## Routes\n\n';
+out+=files('app').filter(p=>/page.tsx|route.ts|not-found|robots|sitemap/.test(p)).map(p=>'- `'+p+'`').join('\n');
+out+='\n\n## Component dependency map\n\nEvery component is listed below with direct import consumers. No consumers means an orphan candidate, not proof of dead code by itself.\n\n| Component | Direct consumers |\n|---|---|\n';
+for(const file of sources.filter(p=>p.startsWith('components/'))){const stem=path.basename(file,'.tsx');const consumers=sources.filter(p=>p!==file&&new RegExp(`(?:from\\s*['"][^'"]*/${stem}['"]|import\\(['"][^'"]*/${stem}['"]\\))`).test(fs.readFileSync(p,'utf8')));out+=`| ${file} | ${consumers.join(', ')||'None'} |\n`;}
+out+='\n## CSS variable consumers\n\n';
+const css=fs.readFileSync('styles/globals.css','utf8');
+for(const m of css.matchAll(/(--[\w-]+):\s*([^;]+);/g)){const consumers=[...sources,'styles/globals.css','tailwind.config.ts'].filter(p=>fs.readFileSync(p,'utf8').includes(`var(${m[1]}`));out+=`- \`${m[1]}: ${m[2]}\`: ${consumers.join(', ')||'No direct var() consumer; inspect generated Tailwind aliases.'}\n`;}
+out+='\nTailwind semantic aliases and legacy color aliases coexist in `tailwind.config.ts`; RGB aliases are consumed through its `c()` helper. Tailwind default spacing/type/breakpoints apply, plus spacing 18 = 4.5rem. Breakpoints: sm 640, md 768, lg 1024, xl 1280, 2xl 1536px. Display sizes additionally use arbitrary clamps and 6xl/8xl/9xl, so there is no single enforced type scale. `font-sans` actually selects Source Serif.\n\n## Font path\n\n`app/layout.tsx` imports Archivo (display), Source Serif 4 (body), IBM Plex Mono (labels) from next/font/google; all latin subset, display swap; mono weights 400/500/600. Their variables are applied on html and consumed by globals.css and Tailwind. Next downloads at build time and self-hosts generated WOFF2; no checked-in font files, manual link, preconnect, or @font-face. Browser font identity and waterfall are captured in baseline/results.json.\n\n## Project and asset inventory\n\n| Slug | Recorded status | Existing treatment |\n|---|---|---|\n';
+const data=fs.readFileSync('data/projects.ts','utf8');
+for(const m of data.matchAll(/slug: '([^']+)'[\s\S]*?status: '([^']+)'/g)){out+=`| ${m[1]} | ${m[2]} | ${m[1]==='apex-nexus'?'Product logo and interactive simulated console; ':''}${['apex-nexus','ugems','sentect','nk-uzima'].includes(m[1])?'Architecture SVG; ':''}Generic sector SVG exists, but detail requests missing PNG; no real product screenshot |\n`;}
+out+='\n## Asset sizes\n\n'+files('public').map(p=>({p,size:fs.statSync(p).size})).sort((a,b)=>b.size-a.size).map(x=>`- ${x.p}: ${x.size} bytes`).join('\n');
+fs.mkdirSync('audit',{recursive:true});fs.writeFileSync('audit/INVENTORY.md',out);
