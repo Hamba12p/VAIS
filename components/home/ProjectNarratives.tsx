@@ -14,7 +14,7 @@ export function ProjectNarratives(){const items=selected.map(slug=>projects.find
       <div className="mt-8 grid gap-6 text-[1.05rem] leading-relaxed text-mist sm:grid-cols-2"><div><p className="mb-2 font-mono text-[10px] uppercase tracking-[.22em] text-terrain-deep">Ground condition</p><p>{project.problem}</p></div><div><p className="mb-2 font-mono text-[10px] uppercase tracking-[.22em] text-terrain-deep">System response</p><p>{project.solution}</p></div></div>
     </TerrainReveal>
     <TerrainReveal delay={.12} className={`relative min-h-[560px] overflow-hidden bg-dusk shadow-ridge ${index%2?'lg:order-1':''}`}>
-      <Image src={`/images/contour/vignette-${vignetteFor(project)}.png`} alt={project.name + ' field context'} fill className="object-cover" sizes="(min-width:1024px) 50vw,100vw"/>
+      <Image src={`/images/contour/vignette-${vignetteFor(project)}.svg`} alt={project.name + ' field context'} fill className="object-cover" sizes="(min-width:1024px) 50vw,100vw"/>
       <div className="absolute inset-0 bg-gradient-to-t from-dusk via-dusk/15 to-transparent"/>
       <TerrainSceneProject kind={markerFor(project)} className="absolute inset-0 h-full w-full mix-blend-soft-light opacity-30"/>
       <div className="absolute inset-x-6 bottom-6 border-t border-canvas/35 pt-5 text-canvas sm:inset-x-10 sm:bottom-10"><p className="font-mono text-[10px] uppercase tracking-[.2em] text-canvas/65">Measured reach</p><StatCounter value={metricNumber(project)} suffix={project.metrics?.[0].includes('+')?'+':''} className="mt-2 font-display text-5xl"/><p className="mt-1 max-w-sm text-sm text-canvas/75">{project.metrics?.[0]}</p></div>
