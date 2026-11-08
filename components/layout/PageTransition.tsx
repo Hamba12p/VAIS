@@ -1,3 +1,19 @@
-'use client';
-import { AnimatePresence,motion } from 'framer-motion';import { usePathname } from 'next/navigation';import { useMotionPreference } from '@/lib/hooks/useMotionPreference';
-export default function PageTransition({children}:{children:React.ReactNode}){const pathname=usePathname();const {reduceMotion}=useMotionPreference();return <><AnimatePresence mode="wait"><motion.div key={pathname} initial={{opacity:0,y:reduceMotion?0:14,rotateX:reduceMotion?0:1}} animate={{opacity:1,y:0,rotateX:0}} exit={{opacity:0}} transition={{duration:reduceMotion?.15:.58,ease:[.16,1,.3,1]}}>{children}</motion.div></AnimatePresence>{!reduceMotion&&<motion.div key={`wipe-${pathname}`} aria-hidden className="terrain-wipe pointer-events-none fixed inset-y-0 left-0 z-[70] w-[46vw]" initial={{x:'-110%'}} animate={{x:'220%'}} transition={{duration:.72,ease:[.16,1,.3,1]}}/>}</>}
+"use client";
+
+import { usePathname } from "next/navigation";
+
+export default function PageTransition({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const pathname = usePathname();
+
+  // CSS handles motion preferences before hydration. Content never waits for
+  // an exit animation or JavaScript to become visible.
+  return (
+    <div key={pathname} className="page-transition">
+      {children}
+    </div>
+  );
+}

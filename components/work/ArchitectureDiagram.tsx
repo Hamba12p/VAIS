@@ -1,3 +1,21 @@
-import type { Project } from '@/types/project';
-import Image from 'next/image';
-export function ArchitectureDiagram({project}:{project:Project}){const special:Record<string,string>={'apex-nexus':'apex-nexus',ugems:'ugems',sentect:'sentect','nk-uzima':'nk-uzima'};const layers=project.architectureHighlight.split(/\.|→/).map(x=>x.trim()).filter(Boolean).slice(0,4);return <div className="topographic-surface border border-hairline p-6 md:p-10"><p className="font-mono text-[10px] uppercase tracking-[.24em] text-clay">Architecture transect / {project.slug}</p>{special[project.slug]?<div className="relative mt-7 aspect-[1000/360] w-full"><Image src={`/images/contour/diagram-${special[project.slug]}.svg`} alt={`${project.name} architecture layers`} fill className="object-contain" sizes="(min-width:1024px) 80vw,100vw"/></div>:<div className="mt-8 grid gap-4 md:grid-cols-4">{layers.map((layer,i)=><div key={layer} className="relative min-h-32 border-l-2 border-clay bg-canvas/80 p-4"><span className="font-mono text-[9px] text-mist">L-{String(i+1).padStart(2,'0')}</span><p className="mt-3 text-sm leading-relaxed text-terrain-deep">{layer}</p>{i<layers.length-1&&<span className="absolute -right-4 top-1/2 z-10 hidden text-clay md:block">◆</span>}</div>)}</div>}<p className="mt-6 max-w-4xl text-sm leading-relaxed text-mist">{project.architectureHighlight}</p></div>}
+import { Plus } from "lucide-react";
+import type { Project } from "@/types/project";
+import { architectureProfiles } from "@/data/architectures";
+import { ArchitectureScene } from "@/components/ui/ArchitectureScene";
+
+export function ArchitectureDiagram({ project }: { project: Project }) {
+  const profile = architectureProfiles[project.slug];
+  if (!profile)
+    return <p className="project-prose">{project.architectureHighlight}</p>;
+  return (
+    <div className="architecture-exhibit">
+      <ArchitectureScene profile={profile} label={project.name} />
+      <details className="architecture-source">
+        <summary>
+          Read the architecture note <Plus size={16} aria-hidden="true" />
+        </summary>
+        <p>{project.architectureHighlight}</p>
+      </details>
+    </div>
+  );
+}

@@ -1,7 +1,138 @@
-import Image from 'next/image';import type { Project } from '@/types/project';import { TerrainSceneProject } from '@/components/three/TerrainSceneProject';import { ArchitectureDiagram } from './ArchitectureDiagram';import { StatusBadge } from '@/components/ui/StatusBadge';import { TechTag } from '@/components/ui/TechTag';import StatCounter from '@/components/ui/StatCounter';import { markerFor,metricNumber,vignetteFor } from '@/lib/projectPresentation';import { TerrainReveal } from '@/components/ui/TerrainReveal';import { ApexNexusSandbox } from '@/components/apex/ApexNexusSandbox';
-export function ProjectDetail({project}:{project:Project}){return <article>
-  <section className="relative min-h-[76svh] overflow-hidden bg-dusk text-canvas"><Image src={`/images/contour/vignette-${vignetteFor(project)}.png`} alt={project.name + ' field context'} fill className="object-cover" priority/><TerrainSceneProject kind={markerFor(project)} className="absolute inset-0 h-full w-full mix-blend-soft-light opacity-30"/><div className="absolute inset-0 bg-gradient-to-t from-dusk via-dusk/35 to-dusk/55"/><div className="container-vais relative z-10 flex min-h-[76svh] flex-col justify-between py-10"><div className="flex justify-between font-mono text-[10px] uppercase tracking-[.22em] text-canvas/65"><span>Field note / {project.slug}</span><StatusBadge status={project.status}/></div><div className="max-w-5xl"><h1 className="font-display text-6xl leading-[.86] md:text-9xl">{project.name}</h1><p className="mt-5 max-w-2xl text-xl leading-relaxed text-canvas/80">{project.tagline}</p></div><div className="border-t border-canvas/35 pt-5"><p className="font-mono text-[9px] uppercase tracking-[.2em] text-canvas/65">Headline measure</p><StatCounter value={metricNumber(project)} suffix={project.metrics?.[0].includes('+')?'+':''} className="mt-1 font-display text-4xl"/><p className="text-sm text-canvas/70">{project.metrics?.[0]}</p></div></div></section>
-  <section className="container-vais grid gap-10 py-20 md:py-28 lg:grid-cols-2"><TerrainReveal><p className="font-mono text-[10px] uppercase tracking-[.23em] text-clay">The condition</p><p className="mt-4 text-xl leading-relaxed text-mist">{project.problem}</p></TerrainReveal><TerrainReveal delay={.1}><p className="font-mono text-[10px] uppercase tracking-[.23em] text-clay">The response</p><p className="mt-4 text-xl leading-relaxed text-mist">{project.solution}</p></TerrainReveal></section>
-  <section className="container-vais pb-20 md:pb-28"><ArchitectureDiagram project={project}/><div className="mt-8 flex flex-wrap gap-2">{project.stack.map(item=><TechTag key={item} label={item}/>)}</div></section>
-  {project.slug==='apex-nexus'&&<section className="container-vais pb-24"><p className="mb-4 font-mono text-[10px] uppercase tracking-[.22em] text-clay">Interactive field console</p><ApexNexusSandbox compact/></section>}
-</article>}
+import Link from "next/link";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import type { Project } from "@/types/project";
+import { projects } from "@/data/projects";
+import { categories } from "@/data/categories";
+import { StatusBadge } from "@/components/ui/StatusBadge";
+import { ProjectImage } from "./ProjectImage";
+import { projectVisual } from "@/lib/projectVisuals";
+import { ArchitectureDiagram } from "./ArchitectureDiagram";
+import { TerrainReveal } from "@/components/ui/TerrainReveal";
+export function ProjectDetail({ project }: { project: Project }) {
+  const kind = project.category.includes("security-intelligence")
+    ? "security"
+    : project.slug === "ugems" ||
+        project.category.includes("education-institutions")
+      ? "education"
+      : "apex";
+  const next =
+    projects[
+      (projects.findIndex((p) => p.slug === project.slug) + 1) % projects.length
+    ];
+  return (
+    <article>
+      <section className="project-hero">
+        <div className="studio-container">
+          <div className="project-breadcrumb">
+            <Link href="/work">
+              <ArrowLeft size={14} />
+              All systems
+            </Link>
+            <StatusBadge status={project.status} />
+          </div>
+          <div className="project-hero-grid">
+            <div>
+              <p className="eyebrow">
+                {categories
+                  .find((c) => c.key === project.category[0])
+                  ?.label.replaceAll("&", "and")}{" "}
+                / System study
+              </p>
+              <h1>{project.name}</h1>
+              <p className="project-tagline">{project.tagline}</p>
+              <div className="project-stack">
+                {project.stack.slice(0, 4).map((s) => (
+                  <span key={s}>{s}</span>
+                ))}
+              </div>
+            </div>
+            <div className={`project-hero-art art-${kind}`}>
+              <ProjectImage project={project} priority />
+              <span className="image-context">
+                {projectVisual(project).caption}
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="studio-container project-story section-space">
+        <aside>
+          <p className="eyebrow">Inside the system</p>
+          <nav aria-label="Case study sections">
+            <a href="#challenge">The challenge</a>
+            <a href="#response">The response</a>
+            <a href="#architecture">Architecture</a>
+          </nav>
+          <div className="project-maturity-note">
+            <StatusBadge status={project.status} />
+            <p>
+              Project maturity follows the portfolio record. Design scope and
+              scale targets are not adoption figures.
+            </p>
+          </div>
+        </aside>
+        <div>
+          <TerrainReveal>
+            <section id="challenge">
+              <p className="eyebrow">The challenge</p>
+              <h2>Understand the conditions.</h2>
+              <p className="project-prose">{project.problem}</p>
+            </section>
+          </TerrainReveal>
+          <TerrainReveal>
+            <section id="response">
+              <p className="eyebrow">The response</p>
+              <h2>A considered architecture.</h2>
+              <p className="project-prose">{project.solution}</p>
+            </section>
+          </TerrainReveal>
+          <TerrainReveal>
+            <section id="architecture">
+              <p className="eyebrow">Architecture</p>
+              <h2>Look beneath the surface.</h2>
+              <p className="project-prose">{project.architectureHighlight}</p>
+              <div className="project-stack light-stack">
+                {project.stack.map((s) => (
+                  <span key={s}>{s}</span>
+                ))}
+              </div>
+            </section>
+          </TerrainReveal>
+        </div>
+      </section>
+      <section className="studio-container project-diagram">
+        <ArchitectureDiagram project={project} />
+      </section>
+      {project.slug === "apex-nexus" && (
+        <section className="studio-container project-demo">
+          <div>
+            <p className="eyebrow">Interactive / Illustrative data</p>
+            <h2>Explore the decision environment.</h2>
+            <p>
+              A sandbox demonstration of roles, directives and evidence. No live
+              institutional data.
+            </p>
+          </div>
+          <Link
+            href="/sandbox/apex-nexus"
+            className="studio-button dark-button"
+          >
+            Launch the sandbox <ArrowUpRight size={18} />
+          </Link>
+        </section>
+      )}
+      <section className="studio-container project-next">
+        <div>
+          <p className="eyebrow">Continue exploring</p>
+          <Link href={`/work/${next.slug}`}>
+            <h2>{next.name}</h2>
+            <ArrowUpRight size={35} />
+          </Link>
+        </div>
+        <Link href="/contact" className="text-link">
+          Discuss a related challenge <ArrowUpRight size={17} />
+        </Link>
+      </section>
+    </article>
+  );
+}

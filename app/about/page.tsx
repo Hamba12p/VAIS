@@ -1,12 +1,131 @@
-import type { Metadata } from 'next';
-import { TerrainSceneCompact } from '@/components/three/TerrainSceneCompact';
-import { TerrainReveal } from '@/components/ui/TerrainReveal';
-import { company } from '@/data/company';
-import { LocationSignal } from '@/components/about/LocationSignal';
-export const metadata:Metadata={title:'About',description:'VAIS — Applied Intelligence Systems. Makerere, Kampala, Uganda.'};
-export default function AboutPage(){return <>
-  <section className="relative min-h-[78svh] overflow-hidden bg-dusk text-canvas"><TerrainSceneCompact className="absolute inset-0 h-full w-full opacity-85"/><div className="absolute inset-0 bg-gradient-to-r from-dusk via-dusk/55 to-transparent"/><div className="container-vais relative z-10 flex min-h-[78svh] items-end py-16"><div className="max-w-4xl"><p className="font-mono text-[10px] uppercase tracking-[.28em] text-canvas/70">About / the ridge line</p><h1 className="mt-5 text-balance font-display text-6xl leading-[.88] md:text-8xl">Built where systems meet <span className="text-clay">actual conditions.</span></h1></div></div></section>
-  <section className="container-vais grid gap-12 py-20 md:py-28 lg:grid-cols-[.7fr_1.3fr]"><TerrainReveal><p className="font-mono text-[10px] uppercase tracking-[.25em] text-clay">Makerere / Kampala<br/>0.3476N 32.5825E</p></TerrainReveal><TerrainReveal delay={.1} className="space-y-8 text-2xl leading-relaxed text-mist md:text-3xl"><p>VAIS is a small applied-intelligence practice focused on systems that have to stay legible under operational pressure.</p><p>The portfolio is built around Uganda&apos;s delivery reality: intermittent power, variable connectivity, public accountability, and integration with existing institutional infrastructure.</p><p className="text-basalt">The common thread is simple: intelligence only matters when it survives contact with the ground.</p></TerrainReveal></section>
-  <section className="container-vais pb-20 md:pb-28"><LocationSignal/></section>
-  <section className="bg-terrain-deep text-canvas"><div className="container-vais grid gap-px py-16 sm:grid-cols-2 lg:grid-cols-4">{company.stats.map((stat,i)=><TerrainReveal key={stat.label} delay={i*.1} className="border-t border-canvas/20 py-7 sm:border-l sm:border-t-0 sm:px-8"><p className="font-display text-5xl text-canvas">{stat.value}</p><p className="mt-2 font-mono text-[10px] uppercase tracking-[.2em] text-canvas/60">{stat.label}</p></TerrainReveal>)}</div></section>
-</>}
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { TerrainReveal } from "@/components/ui/TerrainReveal";
+export const metadata: Metadata = {
+  title: "The practice",
+  description:
+    "An independent applied intelligence practice in Makerere, Kampala. Systems shaped by real operating conditions.",
+};
+export default function AboutPage() {
+  return (
+    <>
+      <section className="page-heading studio-container">
+        <p className="eyebrow">The practice / Kampala, Uganda</p>
+        <h1>
+          Close to the ground.
+          <br />
+          <span className="serif-accent">Open to possibility.</span>
+        </h1>
+        <div className="page-heading-bottom">
+          <p>
+            VAIS is an independent applied-intelligence practice. We work at the
+            intersection of institutional challenges, thoughtful architecture
+            and the realities of implementation.
+          </p>
+          <span className="eyebrow">00.3476° N / 32.5825° E</span>
+        </div>
+      </section>
+      <section className="about-art">
+        <Image
+          src="/images/Asset 5.png"
+          alt="The VAIS mark engraved into a textured graphite surface"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="studio-container">
+          <span className="eyebrow">VAIS / Makerere, Kampala</span>
+          <p>
+            Complexity is the terrain.
+            <br />
+            <span className="serif-accent">Clarity is the work.</span>
+          </p>
+        </div>
+      </section>
+      <section className="studio-container section-space introduction">
+        <TerrainReveal>
+          <p className="eyebrow">Our perspective</p>
+        </TerrainReveal>
+        <TerrainReveal>
+          <h2>
+            Good systems begin
+            <br />
+            with <span className="serif-accent">better questions.</span>
+          </h2>
+          <div className="about-prose">
+            <p>
+              What does a school need when connectivity disappears? How does
+              evidence reach the people making decisions? What makes an
+              institution trust the information in front of it?
+            </p>
+            <p>
+              These are the starting points of our work. Based in Makerere,
+              Kampala, we design around variable connectivity, existing
+              infrastructure and the need for public accountability.
+            </p>
+            <p>
+              Our portfolio spans working implementations, active development
+              and architectural blueprints. We show those distinctions because a
+              clear view of what exists is the beginning of a useful
+              conversation.
+            </p>
+          </div>
+        </TerrainReveal>
+      </section>
+      <section className="approach-section section-space">
+        <div className="studio-container">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">The working relationship</p>
+              <h2>
+                From the first question
+                <br />
+                to <span className="serif-accent">a considered system.</span>
+              </h2>
+            </div>
+          </div>
+          <div className="approach-grid">
+            {[
+              [
+                "01",
+                "Understand the conditions",
+                "Map the people, decisions, infrastructure and constraints. Agree on the problem before designing the solution.",
+              ],
+              [
+                "02",
+                "Make the architecture legible",
+                "Define the system boundaries, evidence flows and responsibilities. Make the trade-offs visible.",
+              ],
+              [
+                "03",
+                "Build, examine, refine",
+                "Develop against the agreed use case. Test assumptions, document limits and use feedback to shape the next step.",
+              ],
+            ].map(([n, title, copy]) => (
+              <TerrainReveal key={n}>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </TerrainReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="studio-container about-contact section-space">
+        <div>
+          <p className="eyebrow">Let’s work through it</p>
+          <h2>
+            Local understanding.
+            <br />
+            <span className="serif-accent">Expansive thinking.</span>
+          </h2>
+        </div>
+        <Link href="/contact" className="studio-button dark-button">
+          Start a conversation <ArrowUpRight size={20} />
+        </Link>
+      </section>
+    </>
+  );
+}

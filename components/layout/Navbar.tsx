@@ -1,4 +1,96 @@
-'use client';
-import Image from 'next/image';import Link from 'next/link';import { usePathname } from 'next/navigation';import { useEffect,useState } from 'react';
-const links=[['/','Home'],['/about','About'],['/work','Work'],['/contact','Contact']];
-export function Navbar(){const path=usePathname();const [open,setOpen]=useState(false);useEffect(()=>setOpen(false),[path]);return <header className="fixed inset-x-0 top-0 z-50 border-b border-hairline/50 bg-canvas/90 backdrop-blur-xl"><div className="container-vais flex h-16 items-center justify-between md:h-[4.5rem]"><Link href="/" className="flex items-center gap-3"><span className="relative h-10 w-10 overflow-hidden bg-canvas"><Image src="/images/logo.png" alt="VAIS" fill priority className="object-contain" sizes="40px"/></span><span className="hidden font-display text-base font-semibold tracking-[.18em] sm:block">VAIS</span></Link><nav className="hidden items-center gap-8 lg:flex">{links.map(([href,label])=><Link key={href} href={href} className={`font-mono text-[10px] uppercase tracking-[.18em] transition-colors ${path===href?'text-clay':'text-mist hover:text-basalt'}`}>{label}</Link>)}</nav><div className="hidden items-center gap-6 lg:flex"><span className="font-mono text-[9px] uppercase tracking-[.16em] text-mist">0.3476N / 32.5825E</span><Link href="/contact" className="organic-outline px-4 py-2 font-mono text-[9px] uppercase tracking-[.16em] text-terrain-deep">Contact VAIS</Link></div><button onClick={()=>setOpen(v=>!v)} aria-expanded={open} aria-label="Toggle menu" className="font-mono text-[10px] uppercase tracking-[.18em] lg:hidden">{open?'Close':'Menu'}</button></div>{open&&<nav className="container-vais flex flex-col border-t border-hairline py-4 lg:hidden">{links.map(([href,label])=><Link key={href} href={href} className="border-b border-hairline py-4 font-display text-3xl">{label}</Link>)}</nav>}</header>}
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+const links = [
+  ["/", "Home"],
+  ["/work", "Work"],
+  ["/about", "The practice"],
+  ["/contact", "Contact"],
+];
+export function Navbar() {
+  const path = usePathname();
+  const [open, setOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => setOpen(false), [path]);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButton.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+  return (
+    <header className="studio-nav">
+      <div className="studio-container nav-inner">
+        <Link href="/" className="brand" aria-label="VAIS home">
+          <Image
+            src="/brand/svg/vais-v-mono-white.svg"
+            alt=""
+            width={32}
+            height={35}
+            priority
+          />
+          <span>
+            VAIS<span className="brand-dot">.</span>
+          </span>
+        </Link>
+        <nav className="desktop-nav" aria-label="Main navigation">
+          {links.slice(0, 3).map(([href, label]) => (
+            <Link
+              key={href}
+              href={href}
+              aria-current={
+                path === href || (href !== "/" && path.startsWith(href))
+                  ? "page"
+                  : undefined
+              }
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
+        <Link href="/contact" className="nav-contact">
+          Let’s talk <ArrowUpRight size={16} />
+        </Link>
+        <button
+          ref={menuButton}
+          type="button"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
+          aria-label={open ? "Close navigation" : "Open navigation"}
+          className="menu-toggle"
+        >
+          {open ? <X /> : <Menu />}
+        </button>
+      </div>
+      {open && (
+        <nav
+          className="mobile-navigation"
+          id="mobile-navigation"
+          aria-label="Mobile navigation"
+        >
+          {links.map(([href, label]) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setOpen(false)}
+              aria-current={path === href ? "page" : undefined}
+            >
+              {label}
+              <ArrowUpRight size={22} />
+            </Link>
+          ))}
+          <p className="eyebrow">Applied intelligence. Kampala, Uganda.</p>
+        </nav>
+      )}
+    </header>
+  );
+}

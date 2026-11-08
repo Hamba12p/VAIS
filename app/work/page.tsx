@@ -1,3 +1,10 @@
-import type { Metadata } from 'next';import { FieldLog } from '@/components/ui/FieldLog';import { projects } from '@/data/projects';
-export const metadata:Metadata={title:'Work',description:'Field notes from VAIS applied intelligence systems.'};
-export default function WorkPage(){return <><section className="container-vais py-20 md:py-28"><p className="font-mono text-[10px] uppercase tracking-[.28em] text-clay">Work / national contours</p><h1 className="mt-5 max-w-6xl text-balance font-display text-6xl leading-[.88] md:text-8xl">One system, fully told, <span className="text-clay">at a time.</span></h1><p className="mt-8 max-w-2xl text-xl leading-relaxed text-mist">{projects.length} applied systems across civic delivery, security, health, education, agriculture, finance, mobility, supply chains, and voice AI.</p></section><FieldLog/></>}
+import type { Metadata } from "next";
+import { ProjectInstrument } from "@/components/work/ProjectInstrument";
+export const metadata: Metadata = {
+  title: "Work",
+  description:
+    "Explore the VAIS portfolio through an interactive field of civic, institutional and enterprise intelligence systems.",
+};
+export default function WorkPage() {
+  return <ProjectInstrument />;
+}

@@ -1,2 +1,54 @@
-import Link from 'next/link';import { company } from '@/data/company';
-export function Footer(){return <footer className="bg-basalt text-canvas"><div className="container-vais py-16 md:py-24"><div className="grid gap-12 lg:grid-cols-[1.5fr_.5fr_.7fr]"><div><p className="font-display text-6xl leading-none">VAIS<span className="text-signal">.</span></p><p className="mt-5 max-w-md text-lg leading-relaxed text-canvas/60">Applied intelligence systems, built in Kampala for institutions operating across real terrain.</p></div><nav className="flex flex-col gap-3 font-mono text-[10px] uppercase tracking-[.18em] text-canvas/65"><Link href="/">Home</Link><Link href="/about">About</Link><Link href="/work">Work</Link><Link href="/contact">Contact</Link></nav><div className="text-sm leading-relaxed text-canvas/60"><a href={`mailto:${company.email}`} className="block text-canvas">{company.email}</a><a href={`tel:${company.phonePrimary}`} className="mt-2 block">{company.phonePrimary}</a><p className="mt-2">{company.address}</p></div></div><div className="mt-16 flex flex-col gap-3 border-t border-canvas/15 pt-5 font-mono text-[9px] uppercase tracking-[.18em] text-canvas/40 sm:flex-row sm:justify-between"><span>© {new Date().getFullYear()} VAIS</span><span>00°20′18.8″N / 32°33′39.9″E</span></div></div></footer>}
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { company } from "@/data/company";
+export function Footer() {
+  return (
+    <footer className="studio-footer">
+      <div className="studio-container">
+        <div className="footer-top">
+          <div>
+            <Link href="/" className="footer-wordmark" aria-label="VAIS home">
+              VAIS<span>.</span>
+            </Link>
+            <p>
+              Independent thinking.
+              <br />
+              Applied intelligence.
+            </p>
+          </div>
+          <div className="footer-location">
+            <p className="eyebrow">Rooted in Kampala</p>
+            <p>
+              {company.address}
+              <br />
+              Built for the world ahead.
+            </p>
+            <span className="eyebrow">00.3476° N / 32.5825° E</span>
+          </div>
+          <nav aria-label="Footer navigation">
+            <Link href="/work">
+              Our work <ArrowUpRight size={15} />
+            </Link>
+            <Link href="/about">
+              The practice <ArrowUpRight size={15} />
+            </Link>
+            <Link href="/contact">
+              Start a conversation <ArrowUpRight size={15} />
+            </Link>
+            <a href={`mailto:${company.email}`}>
+              {company.email}
+              <ArrowUpRight size={15} />
+            </a>
+          </nav>
+        </div>
+        <div className="footer-bottom eyebrow">
+          <span>
+            © {new Date().getFullYear()} VAIS. Applied Intelligence Systems.
+          </span>
+          <a href="#main-content">Back to top ↑</a>
+          <span>Clarity is a competitive advantage.</span>
+        </div>
+      </div>
+    </footer>
+  );
+}

@@ -1,3 +1,20 @@
-'use client';
-import { useEffect,useRef } from 'react';
-export default function ScrollProgress(){const fill=useRef<SVGRectElement>(null);useEffect(()=>{const update=()=>{const h=document.documentElement.scrollHeight-innerHeight;const p=h?scrollY/h:0;fill.current?.setAttribute('y',String(160-p*160));fill.current?.setAttribute('height',String(p*160))};update();addEventListener('scroll',update,{passive:true});return()=>removeEventListener('scroll',update)},[]);return <svg aria-hidden className="pointer-events-none fixed right-2 top-1/2 z-40 hidden h-40 w-7 -translate-y-1/2 lg:block" viewBox="0 0 28 160"><defs><clipPath id="elevation-fill"><rect ref={fill} x="0" y="160" width="28" height="0"/></clipPath></defs><path d="M4 151 8 125 5 108 14 86 9 64 23 38 18 12" fill="none" stroke="#DDD0AE" strokeWidth="2"/><path d="M4 151 8 125 5 108 14 86 9 64 23 38 18 12" fill="none" stroke="#B4602E" strokeWidth="2.5" clipPath="url(#elevation-fill)"/></svg>}
+"use client";
+import { useEffect, useRef } from "react";
+export default function ScrollProgress() {
+  const fill = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const update = () => {
+      const height = document.documentElement.scrollHeight - innerHeight;
+      if (fill.current)
+        fill.current.style.transform = `scaleX(${height > 0 ? scrollY / height : 0})`;
+    };
+    update();
+    addEventListener("scroll", update, { passive: true });
+    addEventListener("resize", update);
+    return () => {
+      removeEventListener("scroll", update);
+      removeEventListener("resize", update);
+    };
+  }, []);
+  return <div ref={fill} aria-hidden="true" className="reading-progress" />;
+}

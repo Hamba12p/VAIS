@@ -1,0 +1,771 @@
+/* Architectural objects: solid geometry, glass layers, copper light. */
+.architecture-scene {
+  --scene-ink: #e7eee0;
+  --scene-muted: #a0b69f;
+  --scene-copper: #c4a578;
+  --scene-line: #6f8f6a52;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #304b36;
+  background:
+    radial-gradient(ellipse at 50% 15%, #244d353d, transparent 65%),
+    linear-gradient(125deg, #111f17, #0a1710 65%, #16261a);
+  color: var(--scene-ink);
+  padding: 40px 40px 25px;
+  box-shadow: 0 18px 45px #1124180a;
+}
+.architecture-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#adc99318 0.65px, transparent 0.65px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(transparent, #000 35%, #000 80%, transparent);
+  pointer-events: none;
+  z-index: -1;
+}
+.architecture-scene::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  top: 45%;
+  background: linear-gradient(90deg, transparent, #a4bc7b22, transparent);
+  pointer-events: none;
+  z-index: -1;
+}
+.architecture-scene-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 30px;
+}
+.architecture-scene-header .eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: #9bb38f;
+  margin: 0;
+}
+.architecture-scene-header h3 {
+  font-family: var(--font-archivo);
+  font-size: 29px;
+  letter-spacing: -0.04em;
+  color: #edf1e3;
+  margin: 13px 0 0;
+  line-height: 1.2;
+}
+.architecture-depth-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid #78956666;
+  border-radius: 3px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #c9d7ba;
+  flex-shrink: 0;
+}
+.architecture-depth-control:hover,
+.architecture-depth-control[aria-pressed="true"] {
+  background: #ceddb1;
+  color: #1d3522;
+  border-color: #ceddb1;
+}
+.architecture-summary {
+  max-width: 750px;
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--scene-muted);
+  margin-top: 21px;
+}
+.architecture-objects {
+  display: grid;
+  grid-template-columns: repeat(var(--object-count), minmax(0, 1fr));
+  gap: 60px;
+  margin-top: 14px;
+  position: relative;
+  align-items: stretch;
+}
+.architecture-node {
+  position: relative;
+  min-width: 0;
+}
+.architecture-object {
+  display: block;
+  position: relative;
+  width: 100%;
+  text-align: left;
+  outline-offset: 5px;
+  color: inherit;
+  min-width: 0;
+  --object-rotate-x: 0deg;
+  --object-rotate-y: 0deg;
+  --object-light-x: 50%;
+  border-radius: 6px;
+  padding: 0 0 23px;
+}
+.architecture-object-art {
+  position: relative;
+  display: block;
+  aspect-ratio: 1.18;
+  perspective: 850px;
+  isolation: isolate;
+  overflow: visible;
+}
+.dimensional-object {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: rotateX(var(--object-rotate-x)) rotateY(var(--object-rotate-y));
+  transform-origin: 50% 70%;
+  transition:
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.45s;
+  filter: saturate(0.86);
+  z-index: 2;
+}
+.object-halo {
+  position: absolute;
+  inset: 10% -8% 0;
+  background: radial-gradient(
+    ellipse at var(--object-light-x) 48%,
+    #b9e3b012,
+    transparent 65%
+  );
+  border-radius: 50%;
+  transition: opacity 0.4s;
+  opacity: 0.5;
+  z-index: 0;
+}
+.object-ground {
+  position: absolute;
+  bottom: 12%;
+  left: 18%;
+  right: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #91b98055, transparent);
+  transform: rotate(-8deg);
+  z-index: 0;
+}
+.architecture-object:hover .dimensional-object,
+.architecture-object:focus-visible .dimensional-object,
+.object-selected .dimensional-object {
+  filter: saturate(1.05) drop-shadow(0 0 13px #8ad08b0d);
+}
+.architecture-object:hover .object-halo,
+.object-selected .object-halo {
+  opacity: 1;
+}
+.architecture-object-label {
+  display: block;
+  border-top: 1px solid #789a643d;
+  padding: 19px 28px 0 0;
+  position: relative;
+  min-height: 76px;
+}
+.architecture-object-label::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 2px;
+  width: 24px;
+  background: #94b77d;
+  transition:
+    width 0.5s,
+    background 0.5s;
+}
+.object-selected .architecture-object-label::before {
+  width: 100%;
+  background: #cbb17b;
+}
+.architecture-object-label > strong {
+  display: block;
+  color: #e2ecd7;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+.architecture-object-label > span {
+  display: block;
+  color: #94ab88;
+  font-family: var(--font-ibm-mono);
+  font-size: 10px;
+  line-height: 1.65;
+  margin-top: 7px;
+  overflow-wrap: anywhere;
+}
+.object-select-mark {
+  position: absolute;
+  right: 0;
+  bottom: 61px;
+  color: #8eaa7b;
+  transition:
+    transform 0.3s,
+    color 0.3s;
+}
+.object-selected .object-select-mark {
+  transform: rotate(45deg);
+  color: #d3bd8c;
+}
+.architecture-connection {
+  position: absolute;
+  width: 70px;
+  top: 42%;
+  right: -65px;
+  z-index: 3;
+  pointer-events: none;
+  text-align: center;
+}
+.connection-line {
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg, #88a86955, #d8ba7cbb, #88a86955);
+  position: relative;
+}
+.connection-line i {
+  position: absolute;
+  top: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #b6c58c;
+}
+.connection-line i:first-child {
+  left: 0;
+  width: 3px;
+  height: 3px;
+  top: -1px;
+}
+.connection-line i:nth-child(2) {
+  left: calc(50% - 2px);
+  box-shadow: 0 0 9px #c9b17c55;
+}
+.connection-line i:last-child {
+  right: 0;
+  width: 3px;
+  height: 3px;
+  top: -1px;
+}
+.architecture-connection > span:last-child {
+  display: block;
+  margin-top: 12px;
+  font-size: 8px;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+  color: #95a67b;
+}
+.architecture-inspection {
+  display: grid;
+  grid-template-columns: 1fr 2.2fr;
+  gap: 35px;
+  align-items: start;
+  align-content: start;
+  padding: 24px 0 7px;
+  border-top: 1px solid #78946355;
+  min-height: 111px;
+  margin-top: 7px;
+}
+.architecture-inspection > div {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+}
+.architecture-inspection h4 {
+  color: #d5e4c1;
+  font-size: 15px;
+  line-height: 1.45;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.inspection-dot {
+  width: 5px;
+  height: 5px;
+  background: #cbb584;
+  flex-shrink: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px #baa67d0c;
+}
+.architecture-inspection > div > svg {
+  color: #8eab76;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.architecture-inspection > p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: #a9b99b;
+  max-width: 760px;
+  margin: 0;
+}
+.architecture-boundary {
+  font-size: 10px;
+  line-height: 1.8;
+  color: #9faf94;
+  margin: 17px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid #6c885533;
+}
+.architecture-scene .asset-floating-layer {
+  transform: translateY(0);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.architecture-separated .asset-floating-layer {
+  transform: translateY(-18px);
+}
+.architecture-separated .dimensional-object {
+  transform: rotateX(var(--object-rotate-x)) rotateY(var(--object-rotate-y))
+    translateY(-4px);
+}
+.architecture-source {
+  border: 1px solid #ccd4c2;
+  border-top: 0;
+  background: #e8edde;
+  padding: 0 28px;
+}
+.architecture-source summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 0;
+  font-size: 12px;
+  color: #436039;
+  min-height: 54px;
+}
+.architecture-source summary::-webkit-details-marker {
+  display: none;
+}
+.architecture-source summary svg {
+  transition: transform 0.3s;
+}
+.architecture-source[open] summary svg {
+  transform: rotate(45deg);
+}
+.architecture-source > p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: #526847;
+  padding-bottom: 22px;
+  max-width: 1000px;
+}
+.architecture-scene-compact {
+  padding: 25px 23px 20px;
+  background:
+    radial-gradient(ellipse at 50% 20%, #34513a25, transparent 70%), #102117;
+  border-color: #67845c55;
+  overflow: hidden;
+}
+.architecture-scene-compact .architecture-scene-header {
+  align-items: center;
+  gap: 15px;
+}
+.architecture-scene-compact .architecture-scene-header .eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  max-width: 150px;
+}
+.architecture-scene-compact .architecture-depth-control {
+  padding: 0 10px;
+  font-size: 10px;
+  gap: 7px;
+  min-height: 40px;
+}
+.architecture-scene-compact .architecture-objects {
+  gap: 22px;
+  margin-top: 30px;
+}
+.architecture-scene-compact .architecture-object-art {
+  aspect-ratio: 0.95;
+}
+.architecture-scene-compact .architecture-object-label {
+  padding: 14px 0 0;
+  min-height: 65px;
+}
+.architecture-scene-compact .architecture-object-label > strong {
+  font-size: 16px;
+}
+.architecture-scene-compact .architecture-object-label > span {
+  font-family: var(--font-archivo);
+  font-size: 10px;
+  line-height: 1.5;
+}
+.architecture-scene-compact .object-select-mark {
+  display: none;
+}
+.architecture-scene-compact .architecture-connection {
+  right: -24px;
+  width: 26px;
+  top: 40%;
+}
+.architecture-scene-compact .architecture-connection > span:last-child {
+  display: none;
+}
+.architecture-scene-compact .architecture-inspection {
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding-top: 20px;
+  margin-top: 0;
+  min-height: 145px;
+}
+.architecture-scene-compact .architecture-inspection > div > svg {
+  display: none;
+}
+.architecture-scene-compact .architecture-inspection p {
+  font-size: 12px;
+  line-height: 1.8;
+}
+.architecture-scene-compact .architecture-inspection h4 {
+  font-size: 14px;
+}
+.architecture-scene-compact .architecture-boundary {
+  font-size: 10px;
+}
+.architecture-static .dimensional-object {
+  transform: none !important;
+}
+.architecture-static .asset-floating-layer {
+  transition: none;
+}
+.architecture-static.architecture-separated .asset-floating-layer {
+  transform: translateY(-18px);
+}
+@media (min-width: 1400px) {
+  .architecture-object-label > strong {
+    font-size: 23px;
+  }
+  .architecture-object-art {
+    aspect-ratio: 1.22;
+  }
+  .architecture-scene-compact .architecture-object-label > strong {
+    font-size: 17px;
+  }
+  .architecture-scene-compact .architecture-object-art {
+    aspect-ratio: 1.05;
+  }
+}
+@media (max-width: 1050px) {
+  .architecture-scene {
+    padding: 30px 26px 23px;
+  }
+  .architecture-objects {
+    gap: 38px;
+  }
+  .architecture-connection {
+    right: -41px;
+    width: 43px;
+  }
+  .architecture-object-label > strong {
+    font-size: 17px;
+  }
+  .architecture-object-label > span {
+    font-size: 9px;
+  }
+  .architecture-object-art {
+    aspect-ratio: 1.03;
+  }
+  .architecture-inspection {
+    grid-template-columns: 1fr 2fr;
+    gap: 25px;
+  }
+  .architecture-scene-compact {
+    padding: 23px 18px 18px;
+  }
+  .architecture-scene-compact .architecture-objects {
+    gap: 17px;
+  }
+  .architecture-scene-compact .architecture-object-label > strong {
+    font-size: 14px;
+  }
+  .architecture-scene-compact .architecture-object-label > span {
+    font-size: 10px;
+  }
+  .architecture-scene-compact .architecture-object-art {
+    aspect-ratio: 0.85;
+  }
+  .architecture-scene-compact .architecture-connection {
+    right: -18px;
+    width: 19px;
+  }
+  .architecture-scene-compact .architecture-depth-control > span {
+    max-width: 73px;
+  }
+  .architecture-scene-compact .architecture-scene-header .eyebrow {
+    max-width: 120px;
+    font-size: 8px;
+  }
+}
+@media (max-width: 760px) {
+  .architecture-scene {
+    padding: 25px 20px 20px;
+  }
+  .architecture-scene-header {
+    gap: 20px;
+    align-items: center;
+  }
+  .architecture-scene-header h3 {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+  .architecture-scene-header .eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+  .architecture-depth-control {
+    font-size: 10px;
+    padding: 0 10px;
+    gap: 8px;
+  }
+  .architecture-depth-control > span {
+    max-width: 78px;
+    text-align: left;
+  }
+  .architecture-summary {
+    font-size: 12px;
+    line-height: 1.8;
+    margin-top: 20px;
+  }
+  .architecture-objects {
+    gap: 25px;
+    margin-top: 20px;
+  }
+  .architecture-connection {
+    right: -27px;
+    width: 29px;
+  }
+  .architecture-connection > span:last-child {
+    font-size: 7px;
+  }
+  .architecture-object-label {
+    padding-right: 16px;
+  }
+  .architecture-object-label > strong {
+    font-size: 17px;
+  }
+  .architecture-object-label > span {
+    font-size: 9px;
+  }
+  .object-select-mark {
+    display: none;
+  }
+  .architecture-inspection {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-top: 20px;
+    min-height: 140px;
+  }
+  .architecture-inspection h4 {
+    font-size: 15px;
+  }
+  .architecture-inspection > div > svg {
+    display: none;
+  }
+  .architecture-inspection > p {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+  .architecture-source {
+    padding-inline: 20px;
+  }
+  .architecture-source > p {
+    font-size: 12px;
+  }
+  .architecture-scene-compact .architecture-scene-header .eyebrow {
+    font-size: 9px;
+    max-width: 155px;
+  }
+  .architecture-scene-compact .architecture-depth-control > span {
+    max-width: 80px;
+  }
+  .architecture-scene-compact .architecture-objects {
+    gap: 18px;
+  }
+  .architecture-scene-compact .architecture-object-art {
+    aspect-ratio: 0.95;
+  }
+  .architecture-scene-compact .architecture-object-label > strong {
+    font-size: 16px;
+  }
+  .architecture-scene-compact .architecture-object-label > span {
+    font-size: 10px;
+  }
+  .architecture-scene-compact .architecture-inspection {
+    min-height: 130px;
+  }
+}
+@media (max-width: 560px) {
+  .architecture-scene:not(.architecture-scene-compact) .architecture-objects {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 10px;
+  }
+  .architecture-scene:not(.architecture-scene-compact) .architecture-object {
+    display: grid;
+    grid-template-columns: 44% 1fr;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 0;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .architecture-object-art {
+    aspect-ratio: 1.1;
+    min-height: 130px;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .architecture-object-label {
+    border-top: 0;
+    padding: 8px 0 10px 12px;
+    border-left: 1px solid #6f8c5355;
+    min-height: 0;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .architecture-object-label::before {
+    width: 2px;
+    height: 15px;
+    left: -1px;
+    top: 8px;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .object-selected
+    .architecture-object-label::before {
+    height: calc(100% - 18px);
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .architecture-object-label
+    > strong {
+    font-size: 18px;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .architecture-object-label
+    > span {
+    font-size: 10px;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .architecture-connection {
+    top: auto;
+    bottom: -21px;
+    left: 21%;
+    right: auto;
+    width: 1px;
+    height: 22px;
+  }
+  .architecture-scene:not(.architecture-scene-compact) .connection-line {
+    height: 22px;
+    width: 1px;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .connection-line
+    i:first-child {
+    top: 0;
+    left: -1px;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .connection-line
+    i:nth-child(2) {
+    top: 9px;
+    left: -2px;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .connection-line
+    i:last-child {
+    top: auto;
+    bottom: 0;
+    right: auto;
+    left: -1px;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .architecture-connection
+    > span:last-child {
+    position: absolute;
+    left: 12px;
+    top: 1px;
+    min-width: 130px;
+    font-size: 9px;
+    text-align: left;
+    margin: 0;
+    line-height: 1.5;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .architecture-inspection {
+    margin-top: 25px;
+  }
+  .architecture-separated .asset-floating-layer {
+    transform: translateY(-13px);
+  }
+  .architecture-static.architecture-separated .asset-floating-layer {
+    transform: translateY(-13px);
+  }
+}
+@media (max-width: 380px) {
+  .architecture-scene {
+    padding-inline: 15px;
+  }
+  .architecture-scene-header h3 {
+    font-size: 22px;
+  }
+  .architecture-depth-control {
+    font-size: 9px;
+    padding: 0 8px;
+    gap: 5px;
+  }
+  .architecture-depth-control svg {
+    width: 14px;
+  }
+  .architecture-depth-control > span {
+    max-width: 70px;
+  }
+  .architecture-scene-compact {
+    padding: 20px 14px 16px;
+  }
+  .architecture-scene-compact .architecture-scene-header .eyebrow {
+    font-size: 8px;
+    max-width: 110px;
+  }
+  .architecture-scene-compact .architecture-object-label > strong {
+    font-size: 14px;
+  }
+  .architecture-scene-compact .architecture-object-label > span {
+    font-size: 9px;
+  }
+  .architecture-scene-compact .architecture-objects {
+    gap: 14px;
+  }
+  .architecture-scene-compact .architecture-connection {
+    right: -15px;
+    width: 16px;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .architecture-object-label
+    > strong {
+    font-size: 16px;
+  }
+  .architecture-scene:not(.architecture-scene-compact)
+    .architecture-object-label
+    > span {
+    font-size: 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .architecture-scene * {
+    transition: none !important;
+  }
+  .architecture-object .dimensional-object {
+    transform: none !important;
+  }
+}
+/* Keep technical labels legible, including the compact home illustration. */
+.architecture-scene .architecture-object-label > span { font-size: 10px; }
+.architecture-connection > span:last-child { font-size: 10px; line-height: 1.5; }
+@media (min-width: 561px) and (max-width: 1050px) { .architecture-connection > span:last-child { display: none; } }
+@media (max-width: 560px) { .architecture-scene:not(.architecture-scene-compact) .architecture-connection > span:last-child { font-size: 10px; } }
