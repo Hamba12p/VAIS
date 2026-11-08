@@ -91,7 +91,7 @@ export default function RootLayout({
         </a>
         <ScrollProgress />
         <Navbar />
-        <main id="main-content" className="flex-1 pt-18" tabIndex={-1}>
+        <main id="main-content" className="site-main flex-1" tabIndex={-1}>
           <PageTransition>{children}</PageTransition>
         </main>
         <Footer />

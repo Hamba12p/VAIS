@@ -56,7 +56,7 @@ export function Navbar() {
             </Link>
           ))}
         </nav>
-        <Link href="/contact" className="nav-contact">
+        <Link href="/contact" className="nav-contact" aria-current={path === "/contact" ? "page" : undefined}>
           Let’s talk <ArrowUpRight size={16} />
         </Link>
         <button
@@ -82,7 +82,7 @@ export function Navbar() {
               key={href}
               href={href}
               onClick={() => setOpen(false)}
-              aria-current={path === href ? "page" : undefined}
+              aria-current={path === href || (href !== "/" && path.startsWith(href)) ? "page" : undefined}
             >
               {label}
               <ArrowUpRight size={22} />
