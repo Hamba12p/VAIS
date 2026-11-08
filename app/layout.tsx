@@ -10,6 +10,7 @@ import "@/styles/gallery.css";
 import "@/styles/instrument.css";
 import "@/styles/signal-accents.css";
 import "@/styles/dimensional.css";
+import "@/styles/inquiry.css";
 
 const display = localFont({
   src: "../public/fonts/archivo-latin.woff2",
