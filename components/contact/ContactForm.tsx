@@ -1,11 +1,31 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { ArrowUpRight, LoaderCircle } from "lucide-react";
 import { company } from "@/data/company";
 
 const fieldClass = "enquiry-field";
 
-export function ContactForm() {
+export function ContactForm({
+  draft,
+}: {
+  draft?: { message: string; revision: number };
+}) {
+  const [message, setMessage] = useState("");
+  const appliedBrief = useRef("");
+  useEffect(() => {
+    if (!draft) return;
+    const previous = appliedBrief.current;
+    setMessage((current) =>
+      previous && current.includes(previous)
+        ? current.replace(previous, draft.message)
+        : current.trim()
+          ? `${current}\n\n${draft.message}`
+          : draft.message,
+    );
+    appliedBrief.current = draft.message;
+    setState(current => current === "sent" ? "idle" : current);
+  }, [draft]);
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
   );
@@ -48,7 +68,9 @@ export function ContactForm() {
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data?.error || "Request failed");
+        throw new Error(data?.error === "Contact endpoint is not configured."
+          ? `We couldn't send your enquiry. Please email ${company.email} directly.`
+          : data?.error || "The enquiry could not be sent. Please try again or email us directly.");
       }
 
       setState("sent");
@@ -111,7 +133,7 @@ export function ContactForm() {
           Enquiry type
           <select
             name="type"
-            defaultValue="Government"
+            defaultValue="Enterprise"
             className={`${fieldClass} appearance-none`}
           >
             {typeOptions.map((option) => (
@@ -130,7 +152,10 @@ export function ContactForm() {
         <label className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/70">
           What should the system do?
           <textarea
+            id="enquiry-message"
             name="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             placeholder="The challenge, the context, and what better could look like..."
             minLength={21}
             required
@@ -144,6 +169,15 @@ export function ContactForm() {
           className="studio-button dark-button justify-self-start disabled:opacity-60"
         >
           {state === "sending" ? "Sending…" : "Send enquiry"}
+          {state === "sending" ? (
+            <LoaderCircle
+              size={17}
+              className="button-loading"
+              aria-hidden="true"
+            />
+          ) : (
+            <ArrowUpRight size={17} aria-hidden="true" />
+          )}
         </button>
 
         <p

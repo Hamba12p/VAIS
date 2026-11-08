@@ -765,7 +765,22 @@
   }
 }
 /* Keep technical labels legible, including the compact home illustration. */
-.architecture-scene .architecture-object-label > span { font-size: 10px; }
-.architecture-connection > span:last-child { font-size: 10px; line-height: 1.5; }
-@media (min-width: 561px) and (max-width: 1050px) { .architecture-connection > span:last-child { display: none; } }
-@media (max-width: 560px) { .architecture-scene:not(.architecture-scene-compact) .architecture-connection > span:last-child { font-size: 10px; } }
+.architecture-scene .architecture-object-label > span {
+  font-size: 10px;
+}
+.architecture-connection > span:last-child {
+  font-size: 10px;
+  line-height: 1.5;
+}
+@media (min-width: 561px) and (max-width: 1050px) {
+  .architecture-connection > span:last-child {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .architecture-scene:not(.architecture-scene-compact)
+    .architecture-connection
+    > span:last-child {
+    font-size: 10px;
+  }
+}

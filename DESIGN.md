@@ -58,6 +58,22 @@ Contact feedback was checked with mocked API responses; no real enquiry was sent
 
 Screenshots and executable local browser checks are retained in the ignored `.tmp` directory. They are local QA artefacts, not production monitoring.
 
+## Dimensional architecture and concept studio / 8 November 2026
+
+The flat architecture SVGs have been replaced in the active project pages by `ArchitectureScene` and six reusable `DimensionalAsset` sculptures: capture, vault, compute, network, cloud and review. The objects use native SVG geometry with emerald, porcelain, glass and copper materials. Labels remain HTML text. Pointer movement changes the viewing angle, selection exposes an explanation, and the layer-separation control reveals the floating surfaces. Reduced motion retains a static presentation and instant layer changes.
+
+`data/architectures.ts` contains explicit, source-grounded profiles for all 15 projects. The original technical note remains available. The home-page explanation shares the same scene and keeps object selection synchronised with its question controls. Existing project maturity and approval/read-only boundaries remain intact.
+
+The contact page now includes a concept studio built from local React components. Visitors describe their needs, optionally name their organisation and receive a suggested starting workflow through deterministic keyword matching. Four working templates cover team tasks, appointments, inventory and client pipelines. A manual workflow override is available. These are illustrative examples, not AI-generated applications or connected business systems.
+
+The Workspace/Overview tabs expose working sample actions and counts. A reset restores the sample; rebuilding starts fresh. No preview action sends a request. "Use this brief" transfers the submitted description and selected workflow into the existing enquiry form, preserving manual notes and replacing the previous imported brief where intact. Only explicit enquiry submission calls the existing contact API. No new backend, storage provider or environment variable was added.
+
+Buttons now have defined hover, pressed, selected, disabled, loading and keyboard-focus treatments. The contact preview's tablist supports arrow keys and Home/End. Preview data stays in component state and is discarded on page departure.
+
+Verification: every project node, layer toggle, source note and SVG identifier was checked in Chromium. Home scene selection works in both directions. All four demo workflows, live counts, resets, keyboard tabs, draft preservation/replacement, mocked enquiry error/retry/success and post-success draft reuse passed. Mobile checks at 320, 390 and 768 px found no horizontal overflow. The 320 px dimensional-label regression was corrected and rechecked at 10 px. No unexpected console or asset errors were recorded. Real email delivery was not exercised.
+
+TypeScript and the final production build passed, with all 25 pages generated. QA scripts and results are in `.tmp/dimensional-qa.cjs`, `.tmp/dimensional-qa.json`, `.tmp/concept-qa.cjs` and `.tmp/concept-qa.json`. The dimensional report retains the initial 9 px failure; the concept report includes the successful focused recheck after correction.
+
 ## Preview and release boundary
 
 Run `npm run dev` for the local preview. `npm run build` produces the Next.js deployment output.
