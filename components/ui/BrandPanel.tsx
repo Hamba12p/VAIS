@@ -1,0 +1,1 @@
+export function BrandPanel(){return <div className="topographic-surface border border-hairline p-6"><span className="inline-block h-8 w-12 [clip-path:polygon(0_100%,45%_0,62%_55%,75%_30%,100%_100%)] bg-terrain-deep"/><p className="mt-4 font-display text-2xl">VAIS</p><p className="mt-1 text-sm text-mist">Applied intelligence systems.</p></div>}

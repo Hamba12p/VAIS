@@ -4,14 +4,28 @@
 
 @layer base {
   :root {
-    --font-sora: 'Sora';
-    --font-inter: 'Inter';
-    --font-jetbrains: 'JetBrains Mono';
+    --bond: #eff1ef;
+    --ink: #14201c;
+    --rule: #c9d1cd;
+    --field: #0b1714;
+    --green: #0c6b57;
+    --signal: #37d6a4;
+    --defence: #37d6a4;
+    --offence: #a34a32;
+    --caution: #d8a32b;
+    --color-canvas: 239 241 239;
+    --color-basalt: 20 32 28;
+    --color-terrain-deep: 11 23 20;
+    --color-terrain-mid: 12 107 87;
+    --color-clay: 12 107 87;
+    --color-signal: 55 214 164;
+    --color-dusk: 11 23 20;
+    --color-mist: 20 32 28;
+    --color-hairline: 201 209 205;
+    --shadow-ridge: 0 0 0 1px rgba(11, 23, 20, 0.08);
   }
 
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   html {
     scroll-behavior: smooth;
@@ -20,76 +34,106 @@
   }
 
   body {
-    @apply bg-vais-white text-vais-charcoal font-inter;
+    background: var(--bond);
+    color: var(--ink);
+    font-family: var(--font-source-serif), Georgia, serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    font-weight: 400;
   }
 
   ::selection {
-    @apply bg-vais-green-light text-vais-green;
+    background: rgba(12, 107, 87, 0.18);
+    color: var(--ink);
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-sora;
+    font-family: var(--font-archivo), sans-serif;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-weight: 600;
   }
-}
 
-/* Fix: prevent oversized or transformed logos from covering the viewport */
-@layer base {
-  header img,
-  footer img,
-  .container-vais img {
-    transform: none !important;
-    max-height: 3rem; /* limit logo height */
-    height: auto !important;
-    width: auto !important;
-    object-fit: contain !important;
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
   }
 }
 
 @layer utilities {
-  .section-padding {
-    @apply px-6 md:px-12 lg:px-20 xl:px-32;
-  }
-
   .container-vais {
-    @apply max-w-7xl mx-auto px-6 md:px-12 lg:px-20;
+    @apply mx-auto max-w-[1240px] px-5 sm:px-8 lg:px-10 xl:px-12;
   }
 
-  .border-vais {
-    @apply border border-vais-border;
+  .font-display {
+    font-family: var(--font-archivo), sans-serif;
+  }
+
+  .font-sans {
+    font-family: var(--font-source-serif), Georgia, serif;
+  }
+
+  .font-mono {
+    font-family: var(--font-ibm-mono), monospace;
+  }
+
+  .text-balance { text-wrap: balance; }
+
+  .panel-field {
+    background: var(--field);
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .bond-rule {
+    border-color: var(--rule);
+  }
+
+  .topographic-surface {
+    background-color: rgba(239, 241, 239, 0.9);
+    background-image: radial-gradient(circle at 1px 1px, rgba(12, 23, 20, 0.08) 1px, transparent 0);
+    background-size: 18px 18px;
   }
 }
 
-/* ─── VAIS Location Signal ─────────────────────────────────── */
-
-/* Dot grid texture for radar panel background */
-.vais-loc-dotgrid {
-  background-image: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.07) 1px,
-    transparent 1px
-  );
-  background-size: 28px 28px;
+.organic-outline {
+  position: relative;
+  isolation: isolate;
 }
 
-/* Pulse ring: scale from near-zero up to full radius, fading out */
-.vais-pulse-ring {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: vais-pulse 3s ease-out infinite;
-}
-.vais-pulse-ring--d1 { animation-delay: 1s; }
-.vais-pulse-ring--d2 { animation-delay: 2s; }
-
-@keyframes vais-pulse {
-  0%   { transform: scale(0.04); opacity: 1; }
-  100% { transform: scale(1);    opacity: 0; }
+.organic-outline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1px solid currentColor;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
-/* Respect prefers-reduced-motion */
+.terrain-grid {
+  background-image: linear-gradient(rgba(201, 209, 205, 0.45) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 209, 205, 0.45) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.signal-dot {
+  box-shadow: 0 0 0 4px rgba(55, 214, 164, 0.14), 0 0 18px rgba(55, 214, 164, 0.7);
+}
+
+.signal-dot-live {
+  animation: signal-live 2.2s ease-in-out infinite;
+}
+
+@keyframes signal-live {
+  0%, 100% { opacity: 0.6; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .vais-pulse-ring {
-    animation: none;
-    opacity: 0.15;
-    transform: scale(1);
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

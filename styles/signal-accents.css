@@ -1,0 +1,307 @@
+/* Small echoes of the project instrument: a shutter, an orbit, a trace. */
+.page-transition {
+  opacity: 1;
+}
+
+.system-card-art::before {
+  content: "";
+  position: absolute;
+  inset: -28% 0 auto;
+  height: 28%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    #c4f2d512 38%,
+    #c4f2d542 49%,
+    #e6f6dcaa 49.7%,
+    #e6f6dcaa 50.3%,
+    #c4f2d514 51%,
+    transparent 76%
+  );
+}
+
+.system-card:focus-visible {
+  outline-offset: 7px;
+}
+
+.system-card:focus-visible .card-read {
+  gap: 24px;
+}
+
+.about-art::before {
+  content: "";
+  position: absolute;
+  width: min(75vw, 1100px);
+  aspect-ratio: 2.05;
+  top: 15%;
+  right: -9%;
+  border: 1px solid #c4f2d54d;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 35px #c4f2d505,
+    0 0 0 36px #c4f2d526,
+    0 0 0 76px #c4f2d503,
+    0 0 0 77px #c4f2d51c;
+  transform: rotate(-28deg);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about-art > .studio-container {
+  position: relative;
+  z-index: 1;
+}
+
+.about-art .eyebrow {
+  font-size: 10px;
+}
+
+.contact-form-wrap::before {
+  width: 100%;
+  height: 1px;
+  transform: scaleX(0.28);
+  transform-origin: left;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.contact-form-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 1px;
+  background: linear-gradient(#567d55, #567d5514);
+  transform: scaleY(0.15);
+  transform-origin: top;
+  opacity: 0.35;
+  pointer-events: none;
+  transition:
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.4s;
+}
+
+.contact-form-wrap:focus-within::before {
+  transform: scaleX(1);
+}
+
+.contact-form-wrap:focus-within::after {
+  transform: scaleY(1);
+  opacity: 0.9;
+}
+
+.signal-diagram .diagram-header,
+.signal-diagram .diagram-bottom {
+  font-size: 10px !important;
+  line-height: 1.7;
+  flex-wrap: wrap;
+}
+
+.signal-diagram .diagram-output .eyebrow,
+.signal-diagram .output-label,
+.signal-diagram .signal-input,
+.signal-diagram .signal-core > span {
+  font-size: 10px;
+}
+
+.signal-diagram .diagram-output {
+  flex-wrap: wrap;
+}
+
+.signal-diagram .signal-input {
+  white-space: normal;
+}
+
+.signal-missing {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  min-height: 78svh;
+  background:
+    radial-gradient(ellipse at 78% 45%, #1b3b2d, transparent 57%), #091310;
+  color: #ecf3e7;
+}
+
+.signal-missing-content {
+  position: relative;
+  padding-block: 100px 120px;
+  z-index: 1;
+}
+
+.signal-missing .eyebrow {
+  color: #b7d1b7;
+}
+
+.signal-missing h1 {
+  color: #ecf3e7;
+  font-size: clamp(48px, 6.5vw, 100px);
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+  margin-top: 35px;
+}
+
+.signal-missing h1 .serif-accent {
+  color: #bfe8c6;
+}
+
+.signal-missing-copy {
+  max-width: 400px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #a7bbaa;
+  margin-top: 30px;
+}
+
+.signal-missing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 32px;
+  margin-top: 35px;
+}
+
+.signal-missing .text-link {
+  color: #d2e1cf;
+  gap: 12px;
+}
+
+.signal-missing a:focus-visible {
+  outline-color: #c4f2d5;
+}
+
+.signal-missing-orbit {
+  position: absolute;
+  width: min(75vw, 1030px);
+  right: -13%;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #b9d3b6;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.signal-missing-orbit svg {
+  width: 100%;
+  height: auto;
+  stroke: currentColor;
+  stroke-width: 0.6;
+}
+
+.signal-missing-orbit ellipse {
+  stroke-dasharray: 660 190;
+}
+
+.signal-missing-orbit .missing-axis {
+  opacity: 0.25;
+  stroke-dasharray: 2 7;
+}
+
+.signal-missing-orbit .missing-signal {
+  stroke: #c5f0cc;
+  stroke-width: 2;
+}
+
+.signal-missing-orbit .missing-point {
+  fill: #d9f5cf;
+  stroke: none;
+}
+
+.signal-missing-orbit .missing-halo,
+.signal-missing-orbit .missing-centre {
+  stroke: #c5f0cc;
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-transition {
+    animation: page-settle 0.32s ease-out both;
+  }
+
+  .system-card:focus-visible .system-card-art::before {
+    animation: card-shutter 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .system-card:hover .system-card-art::before {
+    animation: card-shutter 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes page-settle {
+  from {
+    opacity: 0.78;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes card-shutter {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  12% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(460%);
+  }
+}
+
+@media (max-width: 760px) {
+  .about-art::before {
+    width: 110vw;
+    top: 13%;
+    right: -45%;
+    opacity: 0.7;
+  }
+
+  .signal-diagram .diagram-header {
+    gap: 8px 20px;
+  }
+
+  .signal-diagram .diagram-output {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    justify-items: start;
+  }
+
+  .signal-diagram .output-line {
+    width: 32px;
+  }
+
+  .signal-diagram .signal-input {
+    padding-inline: 9px;
+    line-height: 1.5;
+  }
+
+  .signal-missing-content {
+    padding-block: 90px;
+  }
+
+  .signal-missing-orbit {
+    width: 140vw;
+    right: -65%;
+    top: 20%;
+    opacity: 0.22;
+  }
+
+  .signal-missing h1 {
+    font-size: clamp(42px, 8vw, 62px);
+  }
+
+  .signal-missing-copy {
+    max-width: 330px;
+  }
+}

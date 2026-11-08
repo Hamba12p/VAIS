@@ -1,17 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
+  allowedDevOrigins: ['127.0.0.1'],
   images: {
     formats: ['image/avif', 'image/webp'],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-    ],
-  },
-  experimental: {
-    optimizeCss: true,
   },
 };

@@ -6,7 +6,7 @@ VAIS is a small, focused Next.js application that serves as the public website f
 
 This app provides a fast, accessible, and maintainable website built with modern web tooling. It is intended to showcase project information and serve as the canonical public site.
 
-## Tech Stack
+## Tech Stack...
 
 - Next.js (App Router)
 - TypeScript
