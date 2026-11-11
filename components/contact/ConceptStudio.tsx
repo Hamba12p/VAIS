@@ -126,7 +126,7 @@ export function ConceptStudio({
                   type="button"
                   onClick={() => {
                     setBrief(demoPatterns[kind].example);
-                    setChoice("auto");
+                    setChoice(kind);
                     setAnnouncement(
                       `${demoPatterns[kind].title} example added. Build your preview to try it.`,
                     );
