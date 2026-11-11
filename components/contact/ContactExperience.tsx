@@ -70,7 +70,6 @@ export function ContactExperience() {
               <ArrowUpRight size={18} />
             </a>
             <a href="tel:+256704758195">+256 704 758 195</a>
-            <a href="tel:+256776866921">+256 776 866 921</a>
             <p>{company.address}</p>
           </div>
         </div>
