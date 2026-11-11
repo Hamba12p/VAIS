@@ -2,7 +2,19 @@
 
 Design record updated 11 November 2026.
 
-## Field journal / 11 November 2026
+## Signal atlas / final revision, 11 November 2026
+
+This revision supersedes the pastel-panel treatment below. The shared palette uses deep ink, mineral green and citron, with copper and spectral-blue accents tied to selected content. Thin rules, original contour geometry and a stronger type hierarchy replace the repeated filled cards.
+
+The featured collection now has an illustrated vertical index, wrapping previous/next controls, a large image-led story and an annotated research footer. The systems lab presents one inspectable architectural object at a time. Its stage controls, layer inspection, scenario conditions and reset all work together. The company compass uses the same contour signature and numbered selection points. Reading areas across the practice, contact and project pages follow the same editorial treatment.
+
+Reference study: [Instrument](https://www.instrument.com/) for image-led presentation and editorial pacing, [Linear](https://linear.app/) for interface hierarchy, and [Lusion](https://lusion.co/) for its approach to spatial storytelling. The implementation uses VAIS assets and original geometry; reference-site assets were not copied.
+
+Em dashes were removed from the site copy sources. Both project-name parsers were updated for colon-separated descriptors. Source scanning and rendered checks found no em dashes in the examined pages.
+
+Verification: the production build generates 25 pages. `.tmp/atlas-qa.cjs` passes project selection and wrapping navigation, all three scenario conditions, stage synchronisation, layer inspection and reset, keyboard compass selection, research rendering on all 15 project routes, and 28 route/viewport checks at 320, 390, 768 and 1440 pixels. No page errors, failed assets, overflowing headings or page-width overflow were recorded. Normal and reduced-motion modes were checked. The report is `.tmp/atlas-qa.json`; desktop and mobile captures use `.tmp/atlas-*.png`. These checks establish local behaviour only; live deployment was not verified.
+
+## Field journal / first revision, 11 November 2026
 
 The shared palette now combines forest ink with ochre, clay, lagoon, lilac and leaf-green reading surfaces. `styles/field-journal.css` applies these to the home, practice, contact, portfolio and project-detail pages while retaining the existing typography, imagery and navigation. Reading content starts visible, including with reduced motion or before hydration.
 
