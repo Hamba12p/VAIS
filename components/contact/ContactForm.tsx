@@ -112,6 +112,7 @@ export function ContactForm({
             autoComplete="name"
             placeholder="Your full name"
             minLength={2}
+            maxLength={120}
             required
             className={fieldClass}
           />
@@ -121,6 +122,7 @@ export function ContactForm({
           Email address
           <input
             type="email"
+            maxLength={254}
             name="email"
             autoComplete="email"
             placeholder="you@organisation.com"
@@ -158,6 +160,7 @@ export function ContactForm({
             onChange={(e) => setMessage(e.target.value)}
             placeholder="The challenge, the context, and what better could look like..."
             minLength={21}
+            maxLength={5000}
             required
             rows={4}
             className={fieldClass}

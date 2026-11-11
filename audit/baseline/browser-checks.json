@@ -1,0 +1,59 @@
+{
+  "renderedFonts": {
+    "h1": [
+      {
+        "familyName": "Archivo SemiBold",
+        "postScriptName": "Archivo-SemiBold-SemiBold",
+        "isCustomFont": true,
+        "glyphCount": 57
+      }
+    ],
+    "main p": [
+      {
+        "familyName": "IBM Plex Mono",
+        "postScriptName": "IBMPlexMono-Regular",
+        "isCustomFont": true,
+        "glyphCount": 35
+      }
+    ]
+  },
+  "fontRequests": [
+    {
+      "url": "http://127.0.0.1:3210/_next/static/media/23b7a97ae3b5c134-s.p.226pwps5o-gq_.woff2",
+      "start": 67.19999999995343,
+      "duration": 83.10000000009313,
+      "size": 10420
+    },
+    {
+      "url": "http://127.0.0.1:3210/_next/static/media/68d403cf9f2c68c5-s.p.20at88_q9f_kt.woff2",
+      "start": 68.5,
+      "duration": 73.19999999995343,
+      "size": 51224
+    },
+    {
+      "url": "http://127.0.0.1:3210/_next/static/media/75affa71d1e2f6a7-s.p.17-aodiw50953.woff2",
+      "start": 68.80000000004657,
+      "duration": 92.5999999998603,
+      "size": 35240
+    },
+    {
+      "url": "http://127.0.0.1:3210/_next/static/media/99e609270109b47d-s.p.40sczeszzbjw1.woff2",
+      "start": 69.10000000009313,
+      "duration": 92.5999999998603,
+      "size": 10352
+    },
+    {
+      "url": "http://127.0.0.1:3210/_next/static/media/effe91970fc4db64-s.p.0oace-s_gkfks.woff2",
+      "start": 69.30000000004657,
+      "duration": 107.5999999998603,
+      "size": 10360
+    }
+  ],
+  "normalMotionErrors": [
+    "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+  ],
+  "withoutJavaScript": {
+    "text": "FIELD NOTE / SENTECT\nBLUEPRINT\nSENTECT\n\nReal-time cross-layer behavioral trust graph engine for MTN Uganda's 17M+ subscriber network.\n\nHEADLINE MEASURE\n\n0+\n\n17M+ subscriber network\n\nTHE CONDITION\n\nMTN Uganda's 17 million subscriber network faces five",
+    "opacity": "0"
+  }
+}

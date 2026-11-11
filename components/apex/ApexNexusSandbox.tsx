@@ -54,7 +54,7 @@ export function ApexNexusSandbox({ compact = false }: ApexNexusSandboxProps) {
             />
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#88BDB3]">Sandbox Simulation</p>
-              <h3 className="font-display text-lg font-semibold text-canvas">APEX NEXUS Interactive Console</h3>
+              <h2 className="font-display text-lg font-semibold text-canvas">APEX NEXUS Interactive Console</h2>
             </div>
           </div>
           <div className="flex items-center gap-2 rounded-full border border-[rgba(143,255,229,0.25)] bg-[rgba(8,255,170,0.08)] px-3 py-1.5">
@@ -74,6 +74,7 @@ export function ApexNexusSandbox({ compact = false }: ApexNexusSandboxProps) {
                 <button
                   key={role.id}
                   type="button"
+                  aria-pressed={active}
                   onClick={() => setRoleId(role.id)}
                   className={`rounded-xl border px-3 py-2 text-left transition ${
                     active
@@ -103,7 +104,7 @@ export function ApexNexusSandbox({ compact = false }: ApexNexusSandboxProps) {
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#8BBEB3]">Active View</p>
-                <h4 className="font-display text-lg font-semibold text-canvas">{activeRole.label} Workspace</h4>
+                <h3 className="font-display text-lg font-semibold text-canvas">{activeRole.label} Workspace</h3>
               </div>
               {!compact ? (
                 <Link
@@ -126,7 +127,7 @@ export function ApexNexusSandbox({ compact = false }: ApexNexusSandboxProps) {
                     <div className="flex flex-wrap items-start justify-between gap-2">
                       <div>
                         <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#89B9AF]">{directive.id}</p>
-                        <h5 className="mt-0.5 text-sm font-semibold text-[#E2FBF4]">{directive.title}</h5>
+                        <h4 className="mt-0.5 text-sm font-semibold text-[#E2FBF4]">{directive.title}</h4>
                         <p className="mt-0.5 text-xs text-[#7FA29A]">{directive.pillar} • {directive.ministry}</p>
                       </div>
                       <span className={`rounded-full px-2 py-1 text-[10px] font-semibold tracking-[0.14em] ${style.chip}`}>

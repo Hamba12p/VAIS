@@ -1,2 +1,2 @@
-import { FieldLog } from '@/components/ui/FieldLog';
-export function ProjectGrid(){return <FieldLog/>}
+import { FieldLog, type ProjectListItem } from '@/components/ui/FieldLog';
+export function ProjectGrid({ items }: { items: ProjectListItem[] }) { return <FieldLog items={items} />; }
