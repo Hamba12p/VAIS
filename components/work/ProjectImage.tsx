@@ -56,7 +56,7 @@ export function ProjectImage({
       />
       {illustrated && (
         <span className="drawing-wordmark" aria-hidden="true">
-          {project.name.split(" — ")[0]}
+          {project.name.split(": ")[0]}
         </span>
       )}
     </div>

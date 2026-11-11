@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { TerrainReveal } from "@/components/ui/TerrainReveal";
+import { AtlasMark } from "@/components/ui/AtlasMark";
 export const metadata: Metadata = {
   title: "The practice",
   description:
@@ -48,6 +49,7 @@ export default function AboutPage() {
       <section className="studio-container section-space introduction">
         <TerrainReveal>
           <p className="eyebrow">Our perspective</p>
+          <AtlasMark />
         </TerrainReveal>
         <TerrainReveal>
           <h2>
@@ -57,14 +59,16 @@ export default function AboutPage() {
           </h2>
           <div className="about-prose">
             <p>
-              What does a school need when connectivity disappears? How does
-              evidence reach the people making decisions? What makes an
-              institution trust the information in front of it?
+              There is usually a person holding the process together before
+              there is a platform: the administrator reconciling records, or the
+              colleague calling to check a detail. We want to understand their
+              day before deciding what to build.
             </p>
             <p>
-              These are the starting points of our work. Based in Makerere,
-              Kampala, we design around variable connectivity, existing
-              infrastructure and the need for public accountability.
+              Based in Makerere, Kampala, we bring local operating conditions
+              into the architecture. A connection can drop. An existing tool may
+              still be useful. A decision may need a second pair of eyes. Those
+              details deserve room in the design.
             </p>
             <p>
               Our portfolio spans working implementations, active development
@@ -106,6 +110,9 @@ export default function AboutPage() {
               ],
             ].map(([n, title, copy]) => (
               <TerrainReveal key={n}>
+                <span className="approach-number" aria-hidden="true">
+                  {n}
+                </span>
                 <h3>{title}</h3>
                 <p>{copy}</p>
               </TerrainReveal>

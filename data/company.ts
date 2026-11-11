@@ -1,6 +1,6 @@
 export const company = {
   name: 'VAIS',
-  fullName: 'VAIS — Applied Intelligence Systems',
+  fullName: 'VAIS: Applied Intelligence Systems',
   address: 'Makerere, Kampala, Uganda',
   phonePrimary: '0704758195',
   email: 'Vaistech@gmail.com',

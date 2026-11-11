@@ -15,14 +15,11 @@ export function ContactExperience() {
       revision: (current?.revision ?? 0) + 1,
     }));
     requestAnimationFrame(() => {
-      document
-        .getElementById("send-enquiry")
-        ?.scrollIntoView({
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-            .matches
-            ? "auto"
-            : "smooth",
-        });
+      document.getElementById("send-enquiry")?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+      });
       document
         .getElementById("enquiry-message")
         ?.focus({ preventScroll: true });
@@ -41,8 +38,9 @@ export function ContactExperience() {
         </div>
         <div>
           <p>
-            Start with the challenge. Explore a small working concept, or tell
-            us directly what you have in mind.
+            You do not need a finished specification. A stubborn problem, a
+            rough idea or a process that takes too much of your day is a good
+            place to start. Try a small concept below, or write to us directly.
           </p>
           <a href="#send-enquiry" className="text-link">
             Go straight to an enquiry <ArrowDown size={17} />

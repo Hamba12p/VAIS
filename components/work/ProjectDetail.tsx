@@ -8,6 +8,7 @@ import { ProjectImage } from "./ProjectImage";
 import { projectVisual } from "@/lib/projectVisuals";
 import { ArchitectureDiagram } from "./ArchitectureDiagram";
 import { TerrainReveal } from "@/components/ui/TerrainReveal";
+import { ResearchContext } from "./ResearchContext";
 export function ProjectDetail({ project }: { project: Project }) {
   const kind = project.category.includes("security-intelligence")
     ? "security"
@@ -55,6 +56,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           </div>
         </div>
       </section>
+      <ResearchContext slug={project.slug} />
       <section className="studio-container project-story section-space">
         <aside>
           <p className="eyebrow">Inside the system</p>

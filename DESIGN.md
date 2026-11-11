@@ -1,6 +1,22 @@
 # VAIS / The intelligence beneath
 
-Design record updated 8 November 2026.
+Design record updated 11 November 2026.
+
+## Field journal / 11 November 2026
+
+The shared palette now combines forest ink with ochre, clay, lagoon, lilac and leaf-green reading surfaces. `styles/field-journal.css` applies these to the home, practice, contact, portfolio and project-detail pages while retaining the existing typography, imagery and navigation. Reading content starts visible, including with reduced motion or before hydration.
+
+The home selection is a browsable editorial dossier with a large contextual image, project maturity, design rationale and a dated external reference. Three explicit buttons select APEX NEXUS, UGEMS or SENTECT; the selected dossier links to its project page.
+
+The architectural objects now sit within a scenario workbench. School, briefing and security examples each expose source, relationship and human-review stages. Visitors can disconnect the illustrative school network, flag missing briefing evidence or isolate security signals. These controls change the stage explanations and outcome; they do not call product backends or demonstrate measured product behaviour. Stage selection stays synchronised with the adjacent questions. Reset clears the condition and returns to the source stage.
+
+The work-page orbit is now a company compass. Keyboard-accessible points explain place, people, practice and progress. The portfolio mix is calculated from the existing catalogue maturity labels; it is not an independently verified deployment inventory.
+
+`data/research.ts` records external context checked on 11 November 2026: ITU Facts and Figures 2024 (Africa internet use), UNESCO's 2023 GEM Report (global primary-school connectivity), NIST CSF 2.0 (2024), NIST AI RMF 1.0 (2023), and WHO's 2023 road-safety report. Direct links and dates accompany the figures. All 15 project pages have an individual explanation of the architectural choice and its limits. Framework function counts are labelled as framework structure; regional or global statistics are not presented as Ugandan measurements or product outcomes. The existing project records were not independently re-audited in this design pass.
+
+Original marketing copy was reviewed using the supplied Natural Prose Check skill, focusing on concrete operating situations, varied rhythm and a warmer invitation to work with VAIS.
+
+Local verification: production build generates 25 pages; Chromium checks cover dossier switching, three scenario conditions, reset and stage synchronisation, keyboard compass controls, research sections on all 15 projects and seven routes at 320, 390, 768 and 1440 pixels. QA scripts, screenshots and the viewport report are in `.tmp/journal-*`. This is local verification, not publication to the existing Vercel site.
 
 ## Direction
 

@@ -3,8 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Plus, Minus } from "lucide-react";
 import { TerrainReveal } from "@/components/ui/TerrainReveal";
-import { ArchitectureScene } from "@/components/ui/ArchitectureScene";
-import type { ArchitectureProfile } from "@/data/architectures";
+import { FieldWorkbench } from "./FieldWorkbench";
 
 const layers = [
   {
@@ -23,36 +22,6 @@ const layers = [
     copy: "Give teams a clearer basis for action. Human review, traceable evidence and accountable workflows close the loop.",
   },
 ];
-const philosophy: ArchitectureProfile = {
-  summary: "From field signals to informed human action.",
-  nodes: [
-    {
-      id: "Sense",
-      title: "Sense",
-      subtitle: "Field signals",
-      detail:
-        "Local records, field observations and institutional data form a shared picture of the operating conditions.",
-      asset: "capture",
-    },
-    {
-      id: "Connect",
-      title: "Connect",
-      subtitle: "Evidence relationships",
-      detail:
-        "Role boundaries, evidence relationships and system integrations make the context around a decision visible.",
-      asset: "network",
-    },
-    {
-      id: "Decide",
-      title: "Decide",
-      subtitle: "Human judgement",
-      detail:
-        "Human review, recorded decisions and feedback keep people accountable for the actions a system supports.",
-      asset: "review",
-    },
-  ],
-  connections: ["Shared context", "Decision evidence"],
-};
 export function IntelligenceExplorer() {
   const [active, setActive] = useState(0);
   return (
@@ -60,11 +29,11 @@ export function IntelligenceExplorer() {
       <div className="studio-container">
         <TerrainReveal className="section-heading">
           <div>
-            <p className="eyebrow">How we think</p>
+            <p className="eyebrow">03 / Make the thinking visible</p>
             <h2>
-              Follow the evidence.
+              Take an idea
               <br />
-              <span className="serif-accent">Keep the context.</span>
+              <span className="serif-accent">apart.</span>
             </h2>
           </div>
           <p className="section-description">
@@ -91,6 +60,7 @@ export function IntelligenceExplorer() {
                     aria-controls={`thinking-body-${i}`}
                     onClick={() => setActive(i)}
                   >
+                    <span className="thinking-number">0{i + 1}</span>
                     <span>{item.title}</span>
                     {active === i ? <Minus size={18} /> : <Plus size={18} />}
                   </button>
@@ -112,15 +82,7 @@ export function IntelligenceExplorer() {
               Illustrative sandbox. No live institutional data.
             </span>
           </div>
-          <ArchitectureScene
-            compact
-            profile={philosophy}
-            label="VAIS design philosophy"
-            activeId={layers[active].short}
-            onSelect={(id) =>
-              setActive(layers.findIndex((layer) => layer.short === id))
-            }
-          />
+          <FieldWorkbench active={active} onStage={setActive} />
         </div>
       </div>
     </section>

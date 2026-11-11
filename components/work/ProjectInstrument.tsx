@@ -18,8 +18,9 @@ import { projectVisual, featuredStories } from "@/lib/projectVisuals";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { SignalField } from "@/components/ui/SignalField";
 import { useMotionPreference } from "@/lib/hooks/useMotionPreference";
+import { CompanyCompass } from "./CompanyCompass";
 
-const shortName = (name: string) => name.split(" — ")[0];
+const shortName = (name: string) => name.split(": ")[0];
 const wrap = (value: number) =>
   ((value % projects.length) + projects.length) % projects.length;
 
@@ -211,7 +212,9 @@ export function ProjectInstrument() {
                       "--orbit-x": `${x.toFixed(3)}%`,
                       "--orbit-y": `${y.toFixed(3)}%`,
                       "--orbit-tilt": `${(-Math.sin(angle) * 10).toFixed(3)}deg`,
-                      "--orbit-depth": String(Math.round((Math.cos(angle) + 1) * 8)),
+                      "--orbit-depth": String(
+                        Math.round((Math.cos(angle) + 1) * 8),
+                      ),
                     } as CSSProperties
                   }
                 >
@@ -344,13 +347,7 @@ export function ProjectInstrument() {
             Work with VAIS <ArrowUpRight size={18} />
           </Link>
         </div>
-        <div className="afterword-mark" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
+        <CompanyCompass />
       </section>
       <dialog
         ref={dialog}

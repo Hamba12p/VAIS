@@ -1,34 +1,10 @@
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { Hero } from "@/components/home/Hero";
 import { IntelligenceExplorer } from "@/components/home/IntelligenceExplorer";
-import { ProjectImage } from "@/components/work/ProjectImage";
+import { SelectedDossiers } from "@/components/home/SelectedDossiers";
 import { TerrainReveal } from "@/components/ui/TerrainReveal";
-import { projects } from "@/data/projects";
-
-const selections = [
-  {
-    slug: "apex-nexus",
-    sector: "Government intelligence",
-    title: "Clarity at the centre.",
-    copy: "Connecting directives, field evidence and human-reviewed briefings in one decision environment.",
-    kind: "apex",
-  },
-  {
-    slug: "ugems",
-    sector: "Education infrastructure",
-    title: "Continuity at the edge.",
-    copy: "An offline-first architecture that puts the school first, even when the network comes last.",
-    kind: "education",
-  },
-  {
-    slug: "sentect",
-    sector: "Security intelligence",
-    title: "See the connections.",
-    copy: "A trust-graph blueprint for understanding threats across previously disconnected systems.",
-    kind: "security",
-  },
-] as const;
+import { AtlasMark } from "@/components/ui/AtlasMark";
 
 export default function Home() {
   return (
@@ -52,24 +28,30 @@ export default function Home() {
         id="approach"
       >
         <TerrainReveal>
-          <p className="eyebrow section-kicker">Our conviction</p>
+          <p className="eyebrow section-kicker">01 / A point of view</p>
+          <AtlasMark />
+          <p className="conviction-caption">
+            Close to the ground.
+            <br />
+            Open to possibility.
+          </p>
         </TerrainReveal>
         <TerrainReveal delay={0.1}>
           <h2>
-            Intelligence means nothing
-            <br className="desktop-break" /> until it{" "}
-            <span className="serif-accent">works in your world.</span>
+            Intelligence, with
+            <br />
+            its feet <span className="serif-accent">on the ground.</span>
           </h2>
           <div className="intro-body">
             <p>
-              Complex institutions don’t need another layer of complexity. They
-              need systems that make the whole picture clearer, and the next
-              decision better.
+              A school day carries on when the connection drops. A field team
+              still has something to report. We care about those ordinary
+              moments, because that is where a system earns its place.
             </p>
             <p>
-              We design applied intelligence around the conditions that matter:
-              your people, your infrastructure and the decisions you’re
-              accountable for.
+              From Kampala, we work on the space between an ambitious idea and
+              something people can actually use. Bring the messy brief. We will
+              take the time to understand what needs to work.
             </p>
           </div>
           <Link href="/about" className="text-link">
@@ -77,66 +59,7 @@ export default function Home() {
           </Link>
         </TerrainReveal>
       </section>
-      <section className="selected-work section-space" id="selected-work">
-        <div className="studio-container">
-          <TerrainReveal className="section-heading">
-            <div>
-              <p className="eyebrow">Selected work</p>
-              <h2>
-                Ambition, <span className="serif-accent">made tangible.</span>
-              </h2>
-            </div>
-            <Link href="/work" className="text-link">
-              Explore all {projects.length} systems <ArrowUpRight size={18} />
-            </Link>
-          </TerrainReveal>
-          <div className="selected-grid">
-            {selections.map((item, i) => {
-              const project = projects.find((p) => p.slug === item.slug)!;
-              return (
-                <TerrainReveal key={item.slug} delay={i * 0.08}>
-                  <Link href={`/work/${item.slug}`} className="system-card">
-                    <div className={`system-card-art art-${item.kind}`}>
-                      <div className="card-art-meta">
-                        <span>{item.sector}</span>
-                        <ArrowUpRight size={22} />
-                      </div>
-                      <ProjectImage
-                        project={project}
-                        sizes="(max-width: 760px) 100vw, 33vw"
-                      />
-                      <span className="art-caption">{project.name}</span>
-                    </div>
-                    <div className="system-card-copy">
-                      <div className="card-status">
-                        <span>{project.name}</span>
-                        <span className="maturity">
-                          <i />
-                          {project.status === "in-development"
-                            ? "In development"
-                            : project.status === "deployed"
-                              ? "Deployed"
-                              : "Blueprint"}
-                        </span>
-                      </div>
-                      <h3>{item.title}</h3>
-                      <p>{item.copy}</p>
-                      <span className="card-read">
-                        Explore the system <ArrowRight size={16} />
-                      </span>
-                    </div>
-                  </Link>
-                </TerrainReveal>
-              );
-            })}
-          </div>
-          <p className="portfolio-note">
-            A portfolio of implemented systems, active development and
-            architectural blueprints. Each project carries its own maturity
-            status.
-          </p>
-        </div>
-      </section>
+      <SelectedDossiers />
       <IntelligenceExplorer />
       <section className="studio-container section-space principles-section">
         <TerrainReveal>
@@ -174,6 +97,9 @@ export default function Home() {
           ].map(([n, title, copy]) => (
             <TerrainReveal key={n}>
               <article>
+                <span className="principle-number" aria-hidden="true">
+                  {n}
+                </span>
                 <div>
                   <h3>{title}</h3>
                   <p>{copy}</p>
